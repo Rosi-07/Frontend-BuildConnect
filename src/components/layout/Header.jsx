@@ -13,8 +13,8 @@ const Header = () => {
   const navItems = [
     { id: 1, text: 'Inicio', icon: <FaHome />, route: '/home' },
     { id: 2, text: 'Proyectos', icon: <FaProjectDiagram />, route: '/projects' },
-    { id: 3, text: 'Sobre Nosotros', icon: <FaInfoCircle />, route: '/about' },
-    { id: 4, text: 'Contáctanos', icon: <FaEnvelope />, route: '/contact' },
+    { id: 3, text: 'Sobre Nosotros', icon: <FaInfoCircle />, route: '/aboutUs' },
+    { id: 4, text: 'Contáctanos', icon: <FaEnvelope />, route: '/contactUs' },
     { id: 5, text: 'Iniciar Sesión', icon: <FaSignInAlt />, route: '/login' },
   ];
 
