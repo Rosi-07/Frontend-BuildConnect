@@ -6,15 +6,15 @@ const AboutUs = () => {
             <div className="relative w-full h-[450px]" >
                 <div className="absolute inset-0 opacity-90">
                     <img 
-                        src="/logoConstrucccion.jpg" 
+                        src="https://gruposalva32.com/wp-content/uploads/2020/05/Blog4.jpg" 
                         alt="Background Image" 
                         className="object-cover object-center w-full h-full" 
                     />
                 </div>
                 <div className="absolute flex flex-col items-center justify-between mb-20 inset-2 md:flex-row">
                     <div className="md:w-1/2 md:mb-0">
-                        <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl ">Visibilidad Inmobiliaria</h1>
-                        <p className="mt-4 mb-8 text-xl font-bold text-white">Tu mejor aliado para alquilar o vender propiedades</p>
+                        <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl ">Build Connect</h1>
+                        <p className="mt-4 mb-8 text-xl font-bold text-white">Impulsa la Visibilidad de tus Necesidades</p>
                     </div>
                 </div>
             </div>
@@ -24,40 +24,40 @@ const AboutUs = () => {
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                     <div className="overflow-hidden bg-white rounded-lg shadow-md">
                             <img 
-                                src="https://media.licdn.com/dms/image/D4E12AQEyW__44f1iUA/article-cover_image-shrink_600_2000/0/1654044038393?e=2147483647&v=beta&t=2KxkWgtHUwzMHDvgDi7n1ByW1mpJTTAJLIVVYUZ4_Ew" 
+                                src="https://static.vecteezy.com/system/resources/thumbnails/008/116/910/small_2x/real-estate-concept-business-home-insurance-and-real-estate-protection-buy-and-sell-houses-and-real-estate-online-on-a-virtual-screen-free-photo.jpg" 
                                 alt="Promoción en Línea" 
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Promoción en Línea</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">Publicación de proyectos</h3>
                                 <p className="text-base text-gray-700">
-                                    Usamos estrategias de marketing digital para dar visibilidad a tus propiedades, asegurando que lleguen al público adecuado.
+                                Nuestra plataforma te permite publicar fácilmente tus proyectos de construcción y remodelación. Nos encargamos de promover cada publicación para que alcance la máxima visibilidad entre las constructoras y profesionales del sector.
                                 </p>
                             </div>
                         </div>
                         <div className="overflow-hidden bg-white rounded-lg shadow-md">
                             <img 
-                                src="https://static.vecteezy.com/system/resources/thumbnails/008/116/910/small_2x/real-estate-concept-business-home-insurance-and-real-estate-protection-buy-and-sell-houses-and-real-estate-online-on-a-virtual-screen-free-photo.jpg" 
-                                alt="Listado de Propiedades" 
+                                src="https://neilpatel.com/wp-content/uploads/2017/09/What-is-Relationship-Marketing-and-How-to-Use-it-to-Connect-With-Your-Customers.jpg" 
+                                alt="Conexión" 
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Listado de Propiedades</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">Conexión con proveedores</h3>
                                 <p className="text-base text-gray-700">
-                                    Ofrecemos un listado extenso y actualizado de propiedades en alquiler y venta. Encuentra tu hogar ideal con nosotros.
+                                Facilitamos la conexión directa entre quienes buscan servicios y las empresas que los ofrecen. Nuestra plataforma permite a las constructoras ver proyectos publicados y enviar propuestas adaptadas a las necesidades del cliente.
                                 </p>
                             </div>
                         </div>
                         <div className="overflow-hidden bg-white rounded-lg shadow-md">
                             <img 
                                 src="https://media.istockphoto.com/id/1397833533/photo/man-hand-using-a-calculator-and-fill-in-the-income-tax-online-return-form-for-payment.webp?b=1&s=170667a&w=0&k=20&c=S8uQiHFchcEX-YnN-HmxYk6n-aZYG2YEfeZe99QPzhU=" 
-                                alt="Asesoría Personalizada" 
+                                alt="Gestión" 
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Asesoría Personalizada</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">Gestión de solicitudes</h3>
                                 <p className="text-base text-gray-700">
-                                    Brindamos asesoría personalizada para ayudarte a tomar las mejores decisiones en la compra, venta o alquiler de propiedades.
+                                 Puedes gestionar todas tus solicitudes en un solo lugar. Desde la publicación inicial hasta la selección de la propuesta ideal, nuestra plataforma te facilita comparar y elegir las mejores ofertas para tu proyecto.
                                 </p>
                             </div>
                         </div>
@@ -71,10 +71,9 @@ const AboutUs = () => {
                         <div className="max-w-lg">
                             <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Sobre Nosotros</h2>
                             <p className="mt-4 text-lg text-gray-600">
-                                Somos una empresa joven y dinámica, formada por estudiantes emprendedores, dedicada a ofrecer visibilidad a propiedades para alquiler y venta. 
-                                Nuestra misión es facilitar la conexión entre propietarios y potenciales inquilinos o compradores, aprovechando el poder de internet y las redes sociales.
-                                Trabajamos sin una oficina física, lo que nos permite operar con bajos costos y ofrecer tarifas competitivas. 
-                                Nos comprometemos a proporcionar un servicio rápido, eficiente y de alta calidad.
+                                BuildConnect es una plataforma innovadora formada por un grupo de estudiantes. Nuestra misión es simplificar el proceso de búsqueda y contratación de servicios de construcción, brindando un entorno intuitivo y transparente. 
+                                Aquí, los usuarios pueden publicar sus proyectos y recibir propuestas competitivas de constructoras interesadas, asegurando así una ejecución eficiente y con resultados de alta calidad.
+                                Nos diferenciamos por nuestra dedicación a ofrecer un servicio orientado a facilitar las mejores conexiones en el sector.
                             </p>
                         </div>
                         <div className="mt-12 md:mt-0">
