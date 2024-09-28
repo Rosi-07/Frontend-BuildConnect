@@ -1,3 +1,4 @@
+import { Link} from "react-router-dom";
 
 const Login = () => {
 
@@ -10,11 +11,11 @@ const Login = () => {
             <form>
               <div class="mb-12">
                 <h3 class="text-gray-800 text-3xl font-extrabold">Iniciar Sesión</h3>
-                <p class="text-sm mt-4 text-gray-800">¿Aún no tienes cuenta? <a href="javascript:void(0);" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Regístrate aquí</a></p>
+                <Link to="/register" className="text-sm text-black">
+                <p class="text-sm mt-4 text-gray-800">¿Aún no tienes cuenta?{" "}  <span class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Regístrate aquí</span></p>
+                </Link>
               </div>
-
-              <div>
-                
+              <div>        
                 <div class="relative flex items-center">
                   <input name="email" type="text" required class="w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Usuario" />
                   <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">

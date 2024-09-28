@@ -69,7 +69,7 @@ const AboutUs = () => {
                 <div className="container px-4 py-16 mx-auto sm:px-6 lg:px-8">
                     <div className="grid items-center grid-cols-1 gap-8 md:grid-cols-2">
                         <div className="max-w-lg">
-                            <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Sobre Nosotros</h2>
+                            <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">¿Quiénes somos?</h2>
                             <p className="mt-4 text-lg text-gray-600">
                                 BuildConnect es una plataforma innovadora formada por un grupo de estudiantes. Nuestra misión es simplificar el proceso de búsqueda y contratación de servicios de construcción, brindando un entorno intuitivo y transparente. 
                                 Aquí, los usuarios pueden publicar sus proyectos y recibir propuestas competitivas de constructoras interesadas, asegurando así una ejecución eficiente y con resultados de alta calidad.
