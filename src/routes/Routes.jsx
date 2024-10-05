@@ -6,7 +6,7 @@ import ContactUs from "../pages/contactUs/ContactUs.jsx";
 import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import RegisterType from "../pages/register/RegisterType.jsx";
 import RegisterUser from "../pages/register/registerUser/RegisterUser.jsx";
-import RegisterCompany from "../pages/register/RegisterCompany.jsx";
+import RegisterCompany from "../pages/register/registerCompany/RegisterCompany.jsx";
 import Suscription from "../pages/methodPay/Suscription.jsx";
 
 const routes = (
