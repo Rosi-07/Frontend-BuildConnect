@@ -36,7 +36,7 @@ function RegisterCompany() {
         </div>
     </div>
  <div className="flex justify-center mt-6">
-    <Link to='/methodPay'>
+    <Link to='/suscription'>
     <button type="button" class="py-3.5 px-7 text-sm font-semibold tracking-wider rounded-md text-white bg-[#00455E] hover:bg-[#00455eb6] items-center">
       Aceptar
     </button>
