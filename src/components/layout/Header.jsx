@@ -10,10 +10,17 @@ const Header = () => {
     setNav(!nav);
   };
 
+  const handleScrollToFooter = () => {
+    const footerElement = document.getElementById('footer');
+    if (footerElement) {
+      footerElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navItems = [
     { id: 1, text: 'Inicio', icon: <FaHome />, route: '/home' },
     { id: 2, text: 'Proyectos', icon: <FaProjectDiagram />, route: '/projects' },
-    { id: 3, text: 'Sobre Nosotros', icon: <FaInfoCircle />, route: '/aboutUs' },
+    { id: 3, text: 'Sobre Nosotros', icon: <FaInfoCircle />, route: '#' },
     { id: 4, text: 'Contáctanos', icon: <FaEnvelope />, route: '/contactUs' },
     { id: 5, text: 'Iniciar Sesión', icon: <FaSignInAlt />, route: '/login' },
   ];
@@ -27,7 +34,10 @@ const Header = () => {
       <ul className='hidden md:flex whitespace-nowrap'>
         {navItems.map(item => (
           <li key={item.id} className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
-            <Link to={item.route} className="flex items-center text-white">
+            <Link to={item.route}
+             className="flex items-center text-white"
+             onClick={item.id === 3 ? handleScrollToFooter : undefined}
+             >
               <span className='mr-2'>{item.icon}</span>
               {item.text}
             </Link>
@@ -49,7 +59,10 @@ const Header = () => {
         <h1 className='w-full text-3xl font-bold text-[#FFAE00] m-4'>Build Connect</h1>
         {navItems.map(item => (
           <li key={item.id} className='flex items-center p-4 border-b rounded-xl hover:bg-[#FFAE00] duration-300 hover:text-black cursor-pointer border-gray-600'>
-            <Link to={item.route} className="flex items-center text-white">
+            <Link to={item.route}
+             className="flex items-center text-white"
+             onClick={item.id === 3 ? handleScrollToFooter : undefined}
+             >
               <span className='mr-2'>{item.icon}</span>
               {item.text}
             </Link>
