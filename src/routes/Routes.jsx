@@ -7,7 +7,12 @@ import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import RegisterType from "../pages/register/RegisterType.jsx";
 import RegisterUser from "../pages/register/registerUser/RegisterUser.jsx";
 import RegisterCompany from "../pages/register/registerCompany/RegisterCompany.jsx";
-import Suscription from "../pages/methodPay/Suscription.jsx";
+    // import Suscription from "../pages/methodPay/Suscription.jsx";
+import Admin from "../pages/admin/Admin.jsx";
+import Users from "../pages/admin/users/Users.jsx";
+import Companies from "../pages/admin/companies/companies.jsx";
+import RequireAuth from "../components/auth/RequireAuth.jsx";
+
 
 const routes = (
     <>
@@ -20,9 +25,19 @@ const routes = (
             <Route path="/register" element={<RegisterType />} />
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/registerCompany" element={<RegisterCompany />} />
-            <Route path="/methodPay" element={<Suscription />} />
+            {/* <Route path="/methodPay" element={<Suscription />} /> */}
 
+           
+       
         </Route>
+
+ 
+             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+                <Route path="/admin" element={<Admin />} >
+                <Route path="user" element={<Users />} />
+                <Route path="company" element={<Companies />} />
+                </Route>
+            </Route>
     </>
 );
 
