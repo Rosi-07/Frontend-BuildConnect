@@ -7,7 +7,6 @@ import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import RegisterType from "../pages/register/RegisterType.jsx";
 import RegisterUser from "../pages/register/registerUser/RegisterUser.jsx";
 import RegisterCompany from "../pages/register/registerCompany/RegisterCompany.jsx";
-import Suscription from "../pages/methodPay/Suscription.jsx";
 
 const routes = (
     <>
@@ -20,7 +19,6 @@ const routes = (
             <Route path="/register" element={<RegisterType />} />
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/registerCompany" element={<RegisterCompany />} />
-            <Route path="/methodPay" element={<Suscription />} />
 
         </Route>
     </>

@@ -54,8 +54,7 @@ const RegisterUser = () => {
     try {
       comparePasswords(user.password, confirmPassword);
 
-
-      const response = await fetch("http://localhost:3000/api/auth/register-user", {
+      const response = await api.post("api/auth/register-user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
