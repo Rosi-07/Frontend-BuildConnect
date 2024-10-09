@@ -7,6 +7,8 @@ import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import RegisterType from "../pages/register/RegisterType.jsx";
 import RegisterUser from "../pages/register/registerUser/RegisterUser.jsx";
 import RegisterCompany from "../pages/register/registerCompany/RegisterCompany.jsx";
+import ProjectMarketplace from "../pages/projectMarketplace/ProjectMarketplace.jsx";
+import ProjectDetails from "../pages/projectDetails/ProjectDetails.jsx";
 
 const routes = (
     <>
@@ -19,7 +21,8 @@ const routes = (
             <Route path="/register" element={<RegisterType />} />
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/registerCompany" element={<RegisterCompany />} />
-
+            <Route path="/marketplace" element={<ProjectMarketplace />} />
+            <Route path="/marketplace/:id" element={<ProjectDetails />} />
         </Route>
     </>
 );

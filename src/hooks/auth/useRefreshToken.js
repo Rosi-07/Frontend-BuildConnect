@@ -12,7 +12,7 @@ const useRefreshToken = () => {
         console.log("\x1b[32m%s\x1b[0m", "---------");
 
         setAuth({
-            user: response.data.user,
+            user: response.data.user ?? response.data.company,
             accessToken: response.data.accessToken,
         });
 

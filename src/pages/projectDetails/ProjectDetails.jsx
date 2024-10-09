@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import useAxiosPrivate from '../../hooks/auth/useAxiosPrivate';
 
 const ProjectDetails = () => {
   const { id } = useParams();
+  const api = useAxiosPrivate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,14 +13,7 @@ const ProjectDetails = () => {
     const fetchProject = async () => {
       try {
         setLoading(true);
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJhQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyODA4MzQ3OH0.wo-LF1VkqZ7hksXGhwJ1FAksQdxviAoCMeI7xrZn700';
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const response = await axios.get(`http://localhost:3000/api/projects/${id}`, config);
+        const response = await api.get(`projects/${id}`);
         setProject(response.data);
       } catch (err) {
         console.log(err);
@@ -57,7 +51,7 @@ const ProjectDetails = () => {
           <h1 className="mb-4 text-5xl font-extrabold text-yellow-400">{project.title}</h1>
           <div className="flex items-center mb-6 space-x-4 text-lg text-gray-300">
             <span className="px-3 py-1 bg-gray-500 rounded-full">{project.projectType}</span>
-            <span className="px-3 py-1 bg-gray-500 rounded-full">Categoría: {project.CategoryId}</span>
+            <span className="px-3 py-1 bg-gray-500 rounded-full">{project.Category.name}</span>
           </div>
           <p className="text-lg leading-relaxed tracking-wide">{project.description}</p>
         </div>
@@ -102,8 +96,8 @@ const ProjectDetails = () => {
             </svg>
           </div>
           <div>
-            <h3 className="mb-1 text-xl font-medium text-gray-300">ID del Cliente</h3>
-            <p className="text-lg">{project.UserId}</p>
+            <h3 className="mb-1 text-xl font-medium text-gray-300">Nombre del Cliente</h3>
+            <p className="text-lg">{project.User.name} {project.User.lastName}</p>
           </div>
         </div>
       </div>
