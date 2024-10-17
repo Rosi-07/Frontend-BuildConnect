@@ -28,16 +28,13 @@ const routes = (
             {/* <Route path="/methodPay" element={<Suscription />} /> */}
 
            
-       
         </Route>
 
- 
-             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-                <Route path="/admin" element={<Admin />} >
-                <Route path="user" element={<Users />} />
-                <Route path="company" element={<Companies />} />
-                </Route>
-            </Route>
+        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/companies" element={<Companies />} />
+        </Route>
     </>
 );
 

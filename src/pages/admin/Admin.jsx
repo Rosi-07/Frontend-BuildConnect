@@ -29,8 +29,6 @@ function Admin() {
     };
   }, [api]);
 
-  console.log(usuarios);
-  console.log(empresas);
 
   return (
     <>

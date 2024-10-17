@@ -27,7 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.setItem("persist", persist);
-  }, [persist]); 
+  }, [persist]);
 
   const togglePersist = () => {
     setPersist(!persist);
@@ -46,10 +46,12 @@ const Login = () => {
     );
   };
 
-  
-
-  const navigateToPage = () => {
-    navigate(from);
+  const navigateToPage = (role) => {
+    if (role === "admin") {
+      navigate("/admin", { replace: true });
+    } else {
+      navigate(from);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -57,18 +59,23 @@ const Login = () => {
 
     try {
       const response = await login(email, password);
-      enqueueSnackbar("Inicio de sesión exitoso", { variant: "success" });
+      enqueueSnackbar("Inicio de sesión exitoso", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "right",
+        },
+      });
 
       console.log(response.data);
 
-      
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
       });
 
-    
-      navigateToPage();
+      navigateToPage(response.data.user.role);
+      console.log(response.data.user.role);
     } catch (error) {
       enqueueSnackbar(
         `${error.response?.data?.message || "Error al iniciar sesión"}`,
@@ -84,7 +91,9 @@ const Login = () => {
           <div className="w-full px-4 py-4 md:max-w-md">
             <form onSubmit={handleSubmit}>
               <div className="mb-12">
-                <h3 className="text-3xl font-extrabold text-gray-800">Iniciar Sesión</h3>
+                <h3 className="text-3xl font-extrabold text-gray-800">
+                  Iniciar Sesión
+                </h3>
                 <Link to="/register" className="text-sm text-black">
                   <p className="mt-4 text-sm text-gray-800">
                     ¿Aún no tienes cuenta?{" "}
@@ -114,7 +123,12 @@ const Login = () => {
                     viewBox="0 0 682.667 682.667"
                   >
                     <g>
-                      <path fill="none" strokeMiterlimit="10" strokeWidth="40" d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"></path>
+                      <path
+                        fill="none"
+                        strokeMiterlimit="10"
+                        strokeWidth="40"
+                        d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
+                      ></path>
                       <path d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"></path>
                     </g>
                   </svg>
@@ -154,12 +168,18 @@ const Login = () => {
                     checked={persist}
                     onChange={togglePersist}
                   />
-                  <label htmlFor="remember-me" className="block ml-3 text-sm text-gray-800">
+                  <label
+                    htmlFor="remember-me"
+                    className="block ml-3 text-sm text-gray-800"
+                  >
                     Recordar
                   </label>
                 </div>
                 <div>
-                  <a href="javascript:void(0);" className="text-sm font-semibold text-blue-600 hover:underline">
+                  <a
+                    href="javascript:void(0);"
+                    className="text-sm font-semibold text-blue-600 hover:underline"
+                  >
                     ¿Olvidaste tu contraseña?
                   </a>
                 </div>
@@ -177,7 +197,11 @@ const Login = () => {
           </div>
 
           <div className="p-8 md:h-full bg-slate-100 rounded-xl lg:p-12">
-          <img src="https://readymadeui.com/signin-image.webp" class="w-full h-full object-contain" alt="login-image" />
+            <img
+              src="https://readymadeui.com/signin-image.webp"
+              class="w-full h-full object-contain"
+              alt="login-image"
+            />
           </div>
         </div>
       </div>

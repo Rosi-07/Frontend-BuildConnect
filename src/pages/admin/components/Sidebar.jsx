@@ -14,12 +14,12 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
-// import { useLogout } from "../../../hooks/auth/useLogout"
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import useLogout from "../../../hooks/auth/useLogout";
 
 function Sidebar() {
   const navigate = useNavigate();
-  // const logout = useLogout()
+  const logout = useLogout();
 
   const signOut = () => {
     logout();
@@ -53,14 +53,14 @@ function Sidebar() {
             </ListItemButton>
           </ListItem> */}
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/empresas">
+            <ListItemButton component={Link} to="/admin/companies">
               <ListItemText primary="Empresas" />
             </ListItemButton>
           </ListItem>
         </div>
         <div>
           <ListItem disablePadding>
-            <ListItemButton onClick={() => console.log("adios")}>
+            <ListItemButton onClick={signOut}>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>

@@ -1,109 +1,104 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Autocomplete, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
-import Button from "@mui/material/Button";
-import { create } from "zustand";
-import { useSnackbar } from "notistack";
 import Grid from "@mui/system/Grid";
+import Button from "@mui/material/Button";
+import { useSnackbar } from "notistack";
+import CancelIcon from "@mui/icons-material/Cancel";
+import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import { useState, useEffect } from "react";
-import { FormControl } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 
-const useFormStore = create((set) => ({
-  formData: {
-    name: "",
-    lastName: "",
-    lastName2: "",
-    email: "",
-    password: "",
-    phone: "",
-    home: "",
-    mobile: "",
-    role: "",
-  },
-  setFormData: (newFormData) =>
-    set((state) => ({ formData: { ...state.formData, ...newFormData } })),
-  resetFormData: () =>
-    set(() => ({
-      formData: {
+
+
+
+function UpdateUser({ user, onUpdate, tittle, onClose}) {
+    const api = useAxiosPrivate();
+    const [userData, setUserData] = useState({
+        id: "",
         name: "",
         lastName: "",
         lastName2: "",
         email: "",
         password: "",
-        phone: "",
-        home: "",
-        mobile: "",
-        role: "",
-      },
-    })),
-}));
-
-function AddUser({ reset, setReset }) {
-  const api = useAxiosPrivate();
-
-  const { formData, setFormData, resetFormData } = useFormStore();
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ [name]: value });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const { home, mobile, ...rest } = formData;
-    try {
-      await api.post("api/users", {
-        ...rest,
         phone: {
-          home,
-          mobile,
+          home: "",
+          mobile: "",
         },
-      });
-      resetFormData();
-      setReset(!reset);
-      enqueueSnackbar("Usuario creado con éxito", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
-    } catch (err) {
-      enqueueSnackbar("Error creando usuario", {
-        variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
+        role: "",
+    });
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
+        if (user) {
+            setUserData({
+                ...user,
+                phone: {
+                    home: user.phone.home || "",
+                    mobile: user.phone.mobile || "",
+                },
+            })
+        }
     }
-  };
+    , [user]);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUserData({ ...userData, [name]: value });
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const { home, mobile, ...rest } = userData;
+        try {
+            await api.put(`/users/${userData.id}`, { ...rest, phone: { home, mobile } });
+            enqueueSnackbar("Usuario actualizado con éxito", { variant: "success" });
+            onUpdate();
+        } catch (error) {
+            console.error(error);
+            enqueueSnackbar("No se pudo actualizar el usuario", { variant: "error" });
+        }
+    };
+
+    const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: isSmallScreen ? "90%" : "75%",
+        bgcolor: "background.paper",
+        boxShadow: 24,
+        p: 1,
+        margin: "auto",
+        mt: 1,
+        maxHeight: "80vh",
+        overflowY: "auto",
+        borderRadius: "10px",
+      };
 
   return (
     <>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Agregar Usuario</Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <Box
-            component="form"
-            sx={{
-              mt: 1,
+        <Box sx={style} component="form" onSubmit={handleSubmit}>
+            <Typography variant="h5" align="center" gutterBottom>
+            <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
           >
-            <FormControl>
-              <Grid container spacing={2} margin={1}>
+            {tittle}
+            <Button style={{ color: "#3c6c42" }} onClick={onClose}>
+              <CancelIcon />
+            </Button>
+          </div>
+            </Typography>
+
+            <Grid container spacing={2} margin={1}>
                 {/* Primera fila: Nombre, Primer Apellido, Segundo Apellido */}
                 <Grid xs={12}>
                   <Grid container spacing={2}>
@@ -111,11 +106,10 @@ function AddUser({ reset, setReset }) {
                       <TextField
                         fullWidth
                         required
-                        type="text"
                         name="name"
                         label="Nombre"
                         variant="outlined"
-                        value={formData.name}
+                        value={userData.name}
                         onChange={handleInputChange}
                       />
                     </Grid>
@@ -123,11 +117,11 @@ function AddUser({ reset, setReset }) {
                       <TextField
                         fullWidth
                         required
-                        type="text"
+
                         name="lastName"
                         label="Primer Apellido"
                         variant="outlined"
-                        value={formData.lastName}
+                        value={userData.lastName}
                         onChange={handleInputChange}
                       />
                     </Grid>
@@ -135,11 +129,11 @@ function AddUser({ reset, setReset }) {
                       <TextField
                         fullWidth
                         required
-                        type="text"
+       
                         name="lastName2"
                         label="Segundo Apellido"
                         variant="outlined"
-                        value={formData.lastName2}
+                        value={userData.lastName2}
                         onChange={handleInputChange}
                       />
                     </Grid>
@@ -152,9 +146,9 @@ function AddUser({ reset, setReset }) {
                         <TextField
                           required
                           fullWidth
-                          type="email"
+           
                           name="email"
-                          value={formData.email}
+                          value={userData.email}
                           label="Correo Electrónico"
                           variant="outlined"
                           onChange={handleInputChange}
@@ -164,9 +158,9 @@ function AddUser({ reset, setReset }) {
                         <TextField
                           required
                           fullWidth
-                          type="password"
+                       
                           name="password"
-                          value={formData.password}
+                          value={userData.password}
                           label="Contraseña"
                           variant="outlined"
                           onChange={handleInputChange}
@@ -176,9 +170,9 @@ function AddUser({ reset, setReset }) {
                         <TextField
                           required
                           fullWidth
-                          type="text"
+              
                           name="role"
-                          value={formData.role}
+                          value={userData.role}
                           label="Rol"
                           variant="outlined"
                           onChange={handleInputChange}
@@ -196,7 +190,7 @@ function AddUser({ reset, setReset }) {
                           required
                           name="home"
                           label="Teléfono principal"
-                          value={formData.home}
+                          value={userData.phone.home}
                           onChange={handleInputChange}
                         />
                       </Grid>
@@ -205,7 +199,7 @@ function AddUser({ reset, setReset }) {
                           fullWidth
                           name="mobile"
                           label="Teléfono móvil"
-                          value={formData.mobile}
+                          value={userData.phone.mobile}
                           onChange={handleInputChange}
                         />
                       </Grid>
@@ -214,24 +208,18 @@ function AddUser({ reset, setReset }) {
                 </Grid>
               </Grid>
 
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: "#3c6c42",
-                  color: "#fff",
-                  marginTop: 2, // Espaciado superior para separación
-                }}
-                type="submit"
-                fullWidt
-              >
-                Guardar
-              </Button>
-            </FormControl>
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                    <Button type="submit" variant="contained" color="primary">
+                        Actualizar
+                    </Button>
+            </Box>
+            
+             
+        </Box>
+    
+    
     </>
-  );
+  )
 }
 
-export default AddUser;
+export default UpdateUser
