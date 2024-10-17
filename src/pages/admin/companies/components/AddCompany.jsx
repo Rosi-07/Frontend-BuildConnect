@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import Button from "@mui/material/Button";
 import { create } from "zustand";
 import { useSnackbar } from "notistack";
-import Grid from "@mui/system/Grid";
+import Grid from '@mui/material/Grid';
 import { useState, useEffect } from "react";
 import { FormControl } from "@mui/material";
 

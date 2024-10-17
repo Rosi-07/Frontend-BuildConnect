@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import Button from "@mui/material/Button";
 import { create } from "zustand";
 import { useSnackbar } from "notistack";
-import Grid from "@mui/system/Grid";
+import Grid from '@mui/material/Grid';
 import { useState, useEffect } from "react";
 import { FormControl } from "@mui/material";
 
@@ -102,12 +102,12 @@ function AddUser({ reset, setReset }) {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <FormControl>
-              <Grid container spacing={2} margin={1}>
+            <FormControl fullWidth>
+              <Grid container  margin={2} justifyContent={"center"} fullWidt>
                 {/* Primera fila: Nombre, Primer Apellido, Segundo Apellido */}
                 <Grid xs={12}>
-                  <Grid container spacing={2}>
-                    <Grid xs={12} sm={4}>
+                  <Grid container spacing={2} justifyItems={"center"}>
+                    <Grid xs={12} sm={4} mr={2}>
                       <TextField
                         fullWidth
                         required
@@ -119,7 +119,7 @@ function AddUser({ reset, setReset }) {
                         onChange={handleInputChange}
                       />
                     </Grid>
-                    <Grid xs={12} sm={4}>
+                    <Grid xs={12} sm={4} mr={2}>
                       <TextField
                         fullWidth
                         required
@@ -131,7 +131,7 @@ function AddUser({ reset, setReset }) {
                         onChange={handleInputChange}
                       />
                     </Grid>
-                    <Grid xs={12} sm={4}>
+                    <Grid xs={12} sm={4} mr={2}>
                       <TextField
                         fullWidth
                         required
@@ -146,9 +146,9 @@ function AddUser({ reset, setReset }) {
                   </Grid>
 
                   {/* Segunda fila: Correo, Contraseña, Rol - ocupa todo el ancho */}
-                  <Grid xs={12}>
+                  <Grid xs={12} mt={4}>
                     <Grid container spacing={2}>
-                      <Grid xs={12} sm={4}>
+                      <Grid xs={4} sm={4} mr={2}>
                         <TextField
                           required
                           fullWidth
@@ -160,7 +160,7 @@ function AddUser({ reset, setReset }) {
                           onChange={handleInputChange}
                         />
                       </Grid>
-                      <Grid xs={12} sm={4}>
+                      <Grid xs={4} sm={4} mr={2}>
                         <TextField
                           required
                           fullWidth
@@ -172,7 +172,7 @@ function AddUser({ reset, setReset }) {
                           onChange={handleInputChange}
                         />
                       </Grid>
-                      <Grid xs={12} sm={4}>
+                      <Grid xs={4} sm={4}mr={2}>
                         <TextField
                           required
                           fullWidth
@@ -188,9 +188,9 @@ function AddUser({ reset, setReset }) {
                   </Grid>
 
                   {/* Tercera fila: Teléfono principal y Teléfono móvil */}
-                  <Grid xs={12}>
+                  <Grid xs={12} mt={4}>
                     <Grid container spacing={2}>
-                      <Grid xs={12} sm={6}>
+                      <Grid xs={12} sm={6} mr={2}>
                         <TextField
                           fullWidth
                           required
