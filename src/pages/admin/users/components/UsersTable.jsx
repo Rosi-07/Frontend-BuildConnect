@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import ReusableModal from "../../../../components/modal/ReusableModal";
 import UpdateUser from "./UpdateUser";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
+import ViewUser from "./ViewUser";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function UsersTable({ reset, setReset }) {
   const api = useAxiosPrivate();
@@ -23,6 +25,7 @@ function UsersTable({ reset, setReset }) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -56,6 +59,16 @@ function UsersTable({ reset, setReset }) {
   const handleCloseDeleteDialog = () => {
     setSelectedUser(null);
     setOpenDeleteDialog(false);
+  };
+
+  const handleOpenViewDialog = (user) => {
+    setSelectedUser(user);
+    setOpenViewDialog(true);
+  };
+
+  const handleCloseViewDialog = () => {
+    setSelectedUser(null);
+    setOpenViewDialog(false);
   };
 
   const columns = [
@@ -113,6 +126,13 @@ function UsersTable({ reset, setReset }) {
               label="Eliminar"
               onClick={() => {
                 handleOpenDeleteDialog(params.row);
+              }}
+            />
+            <GridActionsCellItem
+              icon={<VisibilityIcon />}
+              label="Ver"
+              onClick={() => {
+                handleOpenViewDialog(params.row);
               }}
             />
           </div>
@@ -196,6 +216,18 @@ function UsersTable({ reset, setReset }) {
           onConfirm={handleDeleteUser}
         />
       )}
+
+      <ReusableModal
+        open={openViewDialog}
+        onClose={handleCloseViewDialog}
+        title="Ver Usuario"
+        children={
+          <ViewUser
+            user={selectedUser}
+            onClose={handleCloseViewDialog}
+          />
+        }
+      ></ReusableModal>
     </>
   );
 }

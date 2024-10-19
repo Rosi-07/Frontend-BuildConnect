@@ -47,8 +47,8 @@ const useFormStore = create((set) => ({
 }));
 
 function AddCompany({ reset, setReset }) {
-  const api = useAxiosPrivate();
 
+  const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -93,7 +93,7 @@ function AddCompany({ reset, setReset }) {
 
   return (
     <>
-<Accordion>
+ <Accordion>
   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
     <Typography>Agregar Empresa</Typography>
   </AccordionSummary>
@@ -103,93 +103,94 @@ function AddCompany({ reset, setReset }) {
       component="form"
       sx={{
         mt: 1,
+        width: "100%", // Asegura que ocupe todo el ancho
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <FormControl>
-        <Grid container spacing={2} margin={1}>
-          {/* Primera fila: Legal ID, Correo Electrónico, Contraseña */}
-          <Grid xs={12}>
-            <Grid container spacing={2}>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  required
-                  type="text"
-                  name="legalId"
-                  label="ID Legal"
-                  variant="outlined"
-                  value={formData.legalId}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  required
-                  fullWidth
-                  type="text"
-                  name="name"
-                  label="Nombre"
-                  variant="outlined"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  required
-                  fullWidth
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  label="Correo Electrónico"
-                  variant="outlined"
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  required
-                  fullWidth
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  label="Contraseña"
-                  variant="outlined"
-                  onChange={handleInputChange}
-                />
-              </Grid>
-            </Grid>
+      <FormControl fullWidth>
+        {/* Primera fila: ID Legal y Nombre */}
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              type="text"
+              name="legalId"
+              label="ID Legal"
+              variant="outlined"
+              value={formData.legalId}
+              onChange={handleInputChange}
+            />
           </Grid>
-
-          {/* Segunda fila: Teléfono principal, Teléfono móvil, Teléfono fijo */}
-          <Grid xs={12}>
-            <Grid container spacing={2}>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  name="mobile"
-                  label="Teléfono móvil"
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  name="landline"
-                  label="Teléfono fijo"
-                  value={formData.landline}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-            </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              type="text"
+              name="name"
+              label="Nombre"
+              variant="outlined"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
           </Grid>
+        </Grid>
 
-          {/* Tercera fila: Dirección */}
-          <Grid xs={12}>
+        {/* Segunda fila: Correo y Contraseña */}
+        <Grid container spacing={2} mt={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              type="email"
+              name="email"
+              label="Correo Electrónico"
+              variant="outlined"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth
+              type="password"
+              name="password"
+              label="Contraseña"
+              variant="outlined"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </Grid>
+        </Grid>
+
+        {/* Tercera fila: Teléfono móvil y Teléfono fijo */}
+        <Grid container spacing={2} mt={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              name="mobile"
+              label="Teléfono móvil"
+              value={formData.mobile}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              name="landline"
+              label="Teléfono fijo"
+              value={formData.landline}
+              onChange={handleInputChange}
+            />
+          </Grid>
+        </Grid>
+
+        {/* Cuarta fila: Dirección */}
+        <Grid container spacing={2} mt={2}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               required
@@ -199,9 +200,7 @@ function AddCompany({ reset, setReset }) {
               onChange={handleInputChange}
             />
           </Grid>
-
-          {/* Cuarta fila: Pricing */}
-          <Grid xs={12}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               required
@@ -213,13 +212,15 @@ function AddCompany({ reset, setReset }) {
           </Grid>
         </Grid>
 
+    
+
         {/* Botón de Guardar */}
         <Button
           variant="contained"
           style={{
-            backgroundColor: "#3c6c42",
+            backgroundColor: "#00455E",
             color: "#fff",
-            marginTop: 2,
+            marginTop: "16px", // Espacio entre secciones
           }}
           type="submit"
           fullWidth
@@ -230,6 +231,7 @@ function AddCompany({ reset, setReset }) {
     </Box>
   </AccordionDetails>
 </Accordion>
+
 
     </>
   );

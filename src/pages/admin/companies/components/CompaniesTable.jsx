@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import ReusableModal from "../../../../components/modal/ReusableModal";
 import UpdateCompany from "./UpdateCompany";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ViewCompany from "./ViewCompany";
 
 
 
@@ -26,6 +28,7 @@ function CompaniesTable({reset, setReset}) {
   const [openModal, setOpenModal] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
 
   const handleOpenModal = (company) => {
     setSelectedCompany(company);
@@ -47,6 +50,18 @@ function CompaniesTable({reset, setReset}) {
     setOpenDeleteDialog(false);
   }
 
+  const handleOpenViewDialog = (company) => {
+    setSelectedCompany(company);
+    setOpenViewDialog(true);
+  }
+
+  const handleCloseViewDialog = () => {
+    setSelectedCompany(null);
+    setOpenViewDialog(false);
+  }
+
+  
+
   const handleDeleteCompany = async () => {
     try {
       await api.delete(`api/companies/${selectedCompany.companyId}`);
@@ -58,8 +73,6 @@ function CompaniesTable({reset, setReset}) {
       setOpenDeleteDialog(false);
     }
   };
-
-
 
   
 
@@ -130,6 +143,13 @@ function CompaniesTable({reset, setReset}) {
                 handleOpenDeleteDialog(params.row);
               }}
             />
+            <GridActionsCellItem
+              icon={<VisibilityIcon />}
+              label="Ver"
+              onClick={() => {
+               handleOpenViewDialog(params.row);
+              }}
+            />
           </div>
         );
       },
@@ -198,6 +218,18 @@ function CompaniesTable({reset, setReset}) {
           onConfirm={handleDeleteCompany}
         />
       )}
+
+      <ReusableModal
+        open={openViewDialog}
+        onClose={handleCloseViewDialog}
+        title="Ver Empresa"
+        children={
+          <ViewCompany
+            company={selectedCompany}
+            onClose={handleCloseViewDialog}
+          />
+        }
+      ></ReusableModal>
 
 
      </>
