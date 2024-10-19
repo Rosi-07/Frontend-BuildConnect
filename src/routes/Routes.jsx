@@ -14,9 +14,9 @@ const routes = (
     <>
 
         <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterType />} />
             <Route path="/registerUser" element={<RegisterUser />} />
