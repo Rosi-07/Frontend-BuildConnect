@@ -10,7 +10,7 @@ const SearchBar = ({ onSearchChange }) => {
         onChange={onSearchChange}
         className="w-full p-2 text-black border md:w-1/2 rounded-l-md" 
       />
-      <button className="p-2 text-white bg-blue-600 rounded-r-md hover:bg-blue-700">
+      <button className="p-2 text-white border border-gray bg-[#00455e00] rounded-r-md hover:bg-[#00455e3b]">
         🔍
       </button>
     </div>
