@@ -62,10 +62,18 @@ const Login = () => {
       console.log(response.data);
 
       
+      if(response.data.user){
+
       setAuth({
         user: response.data.user,
         accessToken: response.data.accessToken,
       });
+      }else{
+        setAuth({
+          company: response.data.company,
+          accessToken: response.data.accessToken,
+        });
+      }
 
     
       navigateToPage();
@@ -159,7 +167,7 @@ const Login = () => {
                   </label>
                 </div>
                 <div>
-                  <a href="javascript:void(0);" className="text-sm font-semibold text-blue-600 hover:underline">
+                  <a className="text-sm font-semibold text-blue-600 hover:underline">
                     ¿Olvidaste tu contraseña?
                   </a>
                 </div>

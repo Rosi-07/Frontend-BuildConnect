@@ -3,12 +3,13 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { FaHome, FaProjectDiagram, FaInfoCircle, FaEnvelope, FaSignInAlt, FaUserCircle,  } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
 import useAuthStore from '../../hooks/auth/useAuth';
+import useLogout from '../../hooks/auth/useLogout';
 
 const Header = () => {
   const { auth } = useAuthStore();
   const [nav, setNav] = useState(false);
+  const logout = useLogout();
 
-  console.log(auth);
   const handleNav = () => {
     setNav(!nav);
   };
@@ -52,10 +53,10 @@ const Header = () => {
       ))}
 
       <li className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
-        {auth.accessToken ? (
+        {(auth?.user?.role || auth?.company?.role) ? (
           <div className='flex items-center text-white'>
             <FaUserCircle className='mr-2' />
-            <span>¡Hola! {auth.user.name ?? auth.company.name}</span>
+            <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
           </div>
         ) : (
           <Link to='/login' className='flex items-center text-white'>
@@ -64,6 +65,19 @@ const Header = () => {
           </Link>
         )}
       </li>
+
+      {
+        auth?.user?.role || auth?.company?.role ? (
+          <li className='flex items-center p-4 m-2 duration-300 cursor-pointer hover:bg-red-400 rounded-xl hover:text-gray-600'>
+            <div onClick={logout} className='flex items-center text-white'>
+              <FaSignInAlt className='mr-2' />
+              Cerrar Sesión
+            </div>
+          </li>
+        ) : null
+      }
+
+
     </ul>
 
       <div onClick={handleNav} className='block md:hidden'>
