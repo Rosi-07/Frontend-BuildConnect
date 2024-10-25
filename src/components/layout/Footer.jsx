@@ -10,16 +10,16 @@ function Footer() {
   
 
 <footer id='footer' className=" bg-[#00455E]">
-    <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0 mt-8">
+          <div className="mt-8 mb-6 md:mb-0">
                   {/* <img src="/BC-logo.png" className="h-[6rem]" alt="Logo" /> */}
                   <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Build Connect</span>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2 mt-8">
+          <div className="grid grid-cols-2 gap-8 mt-8 sm:gap-6 sm:grid-cols-2">
               <div>
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Contacto</h2>
-                  <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <ul className="font-medium text-gray-500 dark:text-gray-400">
                       <li className="mb-4">
                       <WhatsApp />
                           <a className='ml-2'>+(506) 1234-6578</a>
@@ -33,7 +33,7 @@ function Footer() {
               </div>
               <div>
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Sobre nosotros</h2>
-                  <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <ul className="font-medium text-gray-500 dark:text-gray-400">
                       <li className="mb-4">
                       <Computer/>
                         <a className='ml-2'>Intermediarios virtuales</a>
@@ -48,7 +48,7 @@ function Footer() {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-[#00455E] lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a className="hover:underline">BuildConnect</a>. All Rights Reserved.
+          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a className="hover:underline">BuildConnect</a>. Todos los derechos reservados.
           </span>
       </div>
     </div>

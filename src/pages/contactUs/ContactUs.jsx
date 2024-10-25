@@ -1,8 +1,46 @@
 import { Email, WhatsApp } from '@mui/icons-material';
-
+import { useState } from 'react';
+import api from '../../database/api';
+import { useSnackbar } from 'notistack';
 
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      enqueueSnackbar('Todos los campos son obligatorios', { variant: 'error' });
+      return;
+    }
+
+    try {
+      const response = await api.post('/contact', formData);
+      if (response.status === 200) {
+        enqueueSnackbar('Correo enviado correctamente', { variant: 'success' });
+        setFormData({
+          name: '',
+          email: '',
+          message: ''
+        });
+      }
+    } catch (error) {
+      enqueueSnackbar('Error al enviar el correo', { variant: 'error' });
+    }
+  };
 
 
   return (
@@ -45,7 +83,7 @@ const ContactUs = () => {
                 </ul>
               </div>
               <div className="p-5 h-fit md:p-12">
-                <form >
+                <form onSubmit={handleSubmit}>
                   <div className="mb-6">
                     <div className="mx-0 mb-1 sm:mb-4">
                       <div className="mx-0 mb-1 sm:mb-4">
@@ -56,6 +94,8 @@ const ContactUs = () => {
                           placeholder="Nombre"
                           className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
                           name="name"
+                          value={formData.name}
+                          onChange={handleChange}
                         />
                       </div>
                       <div>
@@ -67,7 +107,8 @@ const ContactUs = () => {
                           placeholder="Correo electrónico"
                           className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
                           name="email"
-                          
+                          value={formData.email}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -79,7 +120,9 @@ const ContactUs = () => {
                         rows="5"
                         placeholder="Mensaje..."
                         className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
-                      ></textarea>
+                        value={formData.message}
+                        onChange={handleChange}
+                     ></textarea>
                     </div>
                   </div>
                   <div className="text-center">
