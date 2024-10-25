@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import api from "../../../database/api"; 
 
 const RegisterUser = () => {
   const navigate = useNavigate();
@@ -19,46 +20,38 @@ const RegisterUser = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [errors, setErrors] = useState([]);
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "number") {
-      setUser({
-        ...user,
+    if (name === "phone") {
+      setUser((prev) => ({
+        ...prev,
         phone: { mobile: value },
-      });
-      return;
-    }
-
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
-
- 
-  const comparePasswords = (password, confirmPassword) => {
-    if (password !== confirmPassword) {
-      setErrors([
-        ...errors,
-        { message: "Las contraseñas no coinciden", field: "cpassword" },
-      ]);
-      throw new Error("Las contraseñas no coinciden");
+      }));
+    } else {
+      setUser((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
   };
 
+  const comparePasswords = () => {
+    if (user.password !== confirmPassword) {
+      setErrors([{ message: "Las contraseñas no coinciden", field: "cpassword" }]);
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      comparePasswords(user.password, confirmPassword);
+    setErrors([]); 
 
-      const response = await api.post("api/auth/register-user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
+    if (!comparePasswords()) return;
+
+    try {
+      const response = await api.post("auth/register-user", user);
 
       if (response.status === 201) {
         setErrorMsg("");
@@ -132,7 +125,7 @@ const RegisterUser = () => {
             </div>
             <div>
               <input
-                name="number"
+                name="phone"
                 type="number"
                 className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
                 placeholder="Teléfono"
@@ -200,7 +193,9 @@ const RegisterUser = () => {
               Aceptar
             </button>
           </div>
+          {errorMsg && <p className="mt-4 text-center text-red-500">{errorMsg}</p>}
         </form>
+
         <div className="flex justify-center mt-6">
           <Link to="/login" className="text-sm text-blue-600">
             ¿Ya tienes cuenta? Inicia sesión aquí
