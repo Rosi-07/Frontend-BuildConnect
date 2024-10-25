@@ -30,16 +30,22 @@ function ViewUser({user, onClose}) {
         <strong>Nombre:</strong> {user.name}
       </Typography>
       <Typography variant="body1">
+        <strong>Primer apellido:</strong> {user.lastName}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Segundo apellido:</strong> {user.lastName2 || "N/A"}
+      </Typography>
+      <Typography variant="body1">
         <strong>Correo:</strong> {user.email}
       </Typography>
       <Typography variant="body1">
         <strong>Teléfono Móvil:</strong> {user.phone?.mobile || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Teléfono Fijo:</strong> {user.phone?.landline || "N/A"}
+        <strong>Teléfono Fijo:</strong> {user.phone?.home || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Dirección:</strong> {user.address}
+        <strong>Rol:</strong> {user.role}
       </Typography>
 
       <Box sx={{ marginTop: 2 }}>
