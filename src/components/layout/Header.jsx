@@ -52,17 +52,17 @@ const Header = () => {
         </li>
       ))}
 
-      <li className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
-        {(auth?.user?.role || auth?.company?.role) ? (
-          <div className='flex items-center text-white'>
-            <FaUserCircle className='mr-2' />
-            <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
-          </div>
-        ) : (
-          <Link to='/login' className='flex items-center text-white'>
-            <FaSignInAlt className='mr-2' />
-            Iniciar Sesión
-          </Link>
+<li className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
+          {(auth?.user?.role || auth?.company?.role) ? (
+            <Link to='/userProfile' className='flex items-center text-white'> {/* Enlace a la vista de perfil */}
+              <FaUserCircle className='mr-2' />
+              <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
+            </Link>
+          ) : (
+            <Link to='/login' className='flex items-center text-white'>
+              <FaSignInAlt className='mr-2' />
+              Iniciar Sesión
+            </Link>
         )}
       </li>
 
