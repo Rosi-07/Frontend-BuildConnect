@@ -1,7 +1,7 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Divider } from "@mui/material";
 
 function ViewCompany({ company, onClose }) {
-  if (!company) return null; // Asegúrate de que hay datos para mostrar
+  if (!company || typeof company !== 'object') return null; 
 
   return (
     <Box 
@@ -14,19 +14,20 @@ function ViewCompany({ company, onClose }) {
         bgcolor: 'white', 
         borderRadius: 2,
         boxShadow: 3,
-        width: 400, 
+        width: { xs: '90%', sm: 400 },
         margin: 'auto', 
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Detalles de la Empresa
       </Typography>
+      <Divider sx={{ width: '100%', marginBottom: 2 }} />
 
       <Typography variant="body1">
-        <strong>Nombre:</strong> {company.name}
+        <strong>Nombre:</strong> {company.name || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Correo:</strong> {company.email}
+        <strong>Correo Electrónico:</strong> {company.email || "N/A"}
       </Typography>
       <Typography variant="body1">
         <strong>Teléfono Móvil:</strong> {company.phone?.mobile || "N/A"}
@@ -35,10 +36,21 @@ function ViewCompany({ company, onClose }) {
         <strong>Teléfono Fijo:</strong> {company.phone?.landline || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Dirección:</strong> {company.address}
+        <strong>Dirección:</strong> {company.address || "N/A"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>ID Legal:</strong> {company.legalId || "N/A"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Plan de Precios:</strong> {company.pricing?.plan || "N/A"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Día de Pago:</strong> {company.pricing?.payDay || "N/A"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Rol:</strong> {company.role || "N/A"}
       </Typography>
 
-      {/* Aquí puedes agregar más campos si es necesario */}
       <Box sx={{ marginTop: 2 }}>
         <Button variant="contained" color="primary" onClick={onClose}>
           Cerrar

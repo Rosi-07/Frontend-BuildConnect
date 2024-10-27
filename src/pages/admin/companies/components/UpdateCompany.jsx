@@ -1,4 +1,15 @@
-import { Autocomplete, useMediaQuery, useTheme, FormControl, Typography, Box, TextField, Button, Grid, MenuItem } from "@mui/material";
+import {
+  Autocomplete,
+  useMediaQuery,
+  useTheme,
+  FormControl,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  Grid,
+  MenuItem,
+} from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
@@ -19,7 +30,10 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
     role: "",
     phone: { mobile: "", landline: "" },
     address: "",
-    pricing: "",
+    pricing: {
+      plan: "",
+      payDay: new Date().toISOString().split("T")[0],
+    },
   });
 
   useEffect(() => {
@@ -27,28 +41,67 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
       setCompanyData({
         ...company,
         phone: {
-          mobile: company.phone.mobile || "",
-          landline: company.phone.landline || "",
+          mobile: company.phone?.mobile || "",
+          landline: company.phone?.landline || "",
+        },
+        pricing: {
+          plan: company.pricing?.plan || "",
+          payDay:
+            company.pricing?.payDay || new Date().toISOString().split("T")[0],
         },
       });
     }
   }, [company]);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCompanyData({ ...companyData, [name]: value });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "landline" || name === "mobile") {
+      setCompanyData((prevData) => ({
+        ...prevData,
+        phone: {
+          ...prevData.phone,
+          [name]: value || "",
+        },
+      }));
+    } else if (name === "plan" || name === "payDay") {
+      setCompanyData((prevData) => ({
+        ...prevData,
+        pricing: {
+          ...prevData.pricing,
+          [name]: value || "",
+        },
+      }));
+    } else {
+      setCompanyData((prevData) => ({
+        ...prevData,
+        [name]: value || "",
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { mobile, landline, ...rest } = companyData;
+
     try {
-      await api.put(`api/companies/${companyData.companyId}`, { ...rest, phone: { mobile, landline } });
-      enqueueSnackbar("Compañía actualizada con éxito", { variant: "success" });
+      const updatedCompanyData = {
+        ...companyData,
+        phone: {
+          mobile: companyData.phone.mobile || "",
+          landline: companyData.phone.landline || "",
+        },
+      };
+
+      await api.put(`/companies/${company.companyId}`, updatedCompanyData);
+
       onUpdate();
+      enqueueSnackbar("Empresa actualizada correctamente", {
+        variant: "success",
+      });
       onClose();
     } catch (error) {
-      enqueueSnackbar("Error al actualizar la compañía", { variant: "error" });
+      enqueueSnackbar("Error al actualizar la empresa", {
+        variant: "error",
+      });
     }
   };
 
@@ -67,7 +120,13 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
   };
 
   return (
-    <Box component="form" sx={style} onSubmit={handleSubmit} noValidate autoComplete="off">
+    <Box
+      component="form"
+      sx={style}
+      onSubmit={handleSubmit}
+      noValidate
+      autoComplete="off"
+    >
       <FormControl fullWidth sx={{ gap: 2 }}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h5" align="center">
@@ -79,7 +138,6 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
         </Box>
 
         <Grid container spacing={2}>
-          {/* Primera fila */}
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -103,7 +161,6 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
             />
           </Grid>
 
-          {/* Segunda fila */}
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -127,7 +184,6 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
             />
           </Grid>
 
-          {/* Tercera fila */}
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -147,7 +203,6 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
             />
           </Grid>
 
-          {/* Cuarta fila */}
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -162,10 +217,29 @@ function UpdateCompany({ company, onUpdate, tittle, onClose }) {
             <TextField
               fullWidth
               required
-              name="pricing"
+              select
+              name="plan"
               label="Plan de Precios"
-              value={companyData.pricing}
+              value={companyData.pricing.plan}
               onChange={handleInputChange}
+              variant="outlined"
+            >
+              <MenuItem value="basic">Basic</MenuItem>
+              <MenuItem value="premium">Premium</MenuItem>
+              <MenuItem value="enterprise">Enterprise</MenuItem>
+            </TextField>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              name="payDay"
+              label="Fecha de Pago"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={companyData.pricing.payDay}
+              onChange={handleInputChange}
+              variant="outlined"
             />
           </Grid>
         </Grid>

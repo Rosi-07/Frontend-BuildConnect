@@ -64,7 +64,7 @@ function CompaniesTable({reset, setReset}) {
 
   const handleDeleteCompany = async () => {
     try {
-      await api.delete(`api/companies/${selectedCompany.companyId}`);
+      await api.delete(`/companies/${selectedCompany.companyId}`);
       setReset((prev) => !prev);
       enqueueSnackbar("Empresa eliminada correctamente", { variant: "success" });
     } catch (error) {
@@ -79,7 +79,7 @@ function CompaniesTable({reset, setReset}) {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const response = await api.get("api/companies");
+        const response = await api.get("/companies");
         setCompanies(response.data);
       } catch (error) {
         console.error(error);

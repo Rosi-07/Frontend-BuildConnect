@@ -15,7 +15,6 @@ import PersistLogin from '../components/auth/PersistLogin.jsx';
 import Admin from "../pages/admin/Admin.jsx";
 import Users from "../pages/admin/users/Users.jsx";
 import Companies from "../pages/admin/companies/companies.jsx";
-import RequireAuth from "../components/auth/RequireAuth.jsx";
 
 
 const routes = (

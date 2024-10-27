@@ -30,7 +30,7 @@ function UsersTable({ reset, setReset }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await api.get("api/users");
+        const response = await api.get("/users");
         setUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -143,7 +143,7 @@ function UsersTable({ reset, setReset }) {
 
   const handleDeleteUser = async () => {
     try {
-      await api.delete(`api/users/${selectedUser.id}`);
+      await api.delete(`/users/${selectedUser.id}`);
       enqueueSnackbar("Usuario eliminado correctamente", {
         variant: "success",
       });

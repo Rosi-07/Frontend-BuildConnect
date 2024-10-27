@@ -9,9 +9,9 @@ import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import Button from "@mui/material/Button";
 import { create } from "zustand";
 import { useSnackbar } from "notistack";
-import Grid from '@mui/material/Grid';
-import { useState, useEffect } from "react";
-import { FormControl } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { useState } from "react";
+import { FormControl, MenuItem, Select, InputLabel } from "@mui/material";
 
 const useFormStore = create((set) => ({
   formData: {
@@ -24,8 +24,10 @@ const useFormStore = create((set) => ({
     mobile: "",
     landline: "",
     address: "",
-    pricing: "",
-
+    pricing: {
+      plan: "",
+      payDay: new Date().toISOString().split("T")[0],
+    },
   },
   setFormData: (newFormData) =>
     set((state) => ({ formData: { ...state.formData, ...newFormData } })),
@@ -34,20 +36,22 @@ const useFormStore = create((set) => ({
       formData: {
         legalId: "",
         name: "",
-    email: "",
-    password: "",
-    role: "",
-    phone: "",
-    mobile: "",
-    landline: "",
-    address: "",
-    pricing: "",
+        email: "",
+        password: "",
+        role: "",
+        phone: "",
+        mobile: "",
+        landline: "",
+        address: "",
+        pricing: {
+          plan: "",
+          payDay: new Date().toISOString().split("T")[0],
+        },
       },
     })),
 }));
 
 function AddCompany({ reset, setReset }) {
-
   const api = useAxiosPrivate();
   const { formData, setFormData, resetFormData } = useFormStore();
   const { enqueueSnackbar } = useSnackbar();
@@ -57,182 +61,190 @@ function AddCompany({ reset, setReset }) {
     setFormData({ [name]: value });
   };
 
+  const handlePricingChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      pricing: { ...formData.pricing, [name]: value },
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { role,home, mobile, ...rest } = formData;
+    const { role, landline, mobile, ...rest } = formData;
+    console.log(formData);
     try {
-      await api.post("api/companies", {
+      await api.post("/companies", {
         ...rest,
         phone: {
           landline,
           mobile,
         },
-        role: "company",
       });
       resetFormData();
       setReset(!reset);
-      enqueueSnackbar("Usuario creado con éxito", {
+      enqueueSnackbar("Empresa creada con éxito", {
         variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
     } catch (err) {
-      enqueueSnackbar("Error creando usuario", {
+      enqueueSnackbar("Error creando empresa", {
         variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
+        anchorOrigin: { vertical: "top", horizontal: "center" },
       });
     }
   };
 
-
-
   return (
     <>
- <Accordion>
-  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-    <Typography>Agregar Empresa</Typography>
-  </AccordionSummary>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Agregar Empresa</Typography>
+        </AccordionSummary>
 
-  <AccordionDetails>
-    <Box
-      component="form"
-      sx={{
-        mt: 1,
-        width: "100%", // Asegura que ocupe todo el ancho
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
-      <FormControl fullWidth>
-        {/* Primera fila: ID Legal y Nombre */}
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              required
-              type="text"
-              name="legalId"
-              label="ID Legal"
-              variant="outlined"
-              value={formData.legalId}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              type="text"
-              name="name"
-              label="Nombre"
-              variant="outlined"
-              value={formData.name}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+        <AccordionDetails>
+          <Box
+            component="form"
+            sx={{ mt: 1, width: "100%" }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <FormControl fullWidth>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="legalId"
+                    label="ID Legal"
+                    variant="outlined"
+                    value={formData.legalId}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="text"
+                    name="name"
+                    label="Nombre"
+                    variant="outlined"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="text"
+                    name="address"
+                    label="Dirección"
+                    variant="outlined"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
-        {/* Segunda fila: Correo y Contraseña */}
-        <Grid container spacing={2} mt={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              type="email"
-              name="email"
-              label="Correo Electrónico"
-              variant="outlined"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              type="password"
-              name="password"
-              label="Contraseña"
-              variant="outlined"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+              <Grid container spacing={2} mt={4}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    name="landline"
+                    label="Teléfono fijo"
+                    value={formData.landline}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="mobile"
+                    label="Teléfono móvil"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
-        {/* Tercera fila: Teléfono móvil y Teléfono fijo */}
-        <Grid container spacing={2} mt={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              name="mobile"
-              label="Teléfono móvil"
-              value={formData.mobile}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              name="landline"
-              label="Teléfono fijo"
-              value={formData.landline}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+              <Grid container spacing={2} mt={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="email"
+                    name="email"
+                    label="Correo Electrónico"
+                    variant="outlined"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="password"
+                    name="password"
+                    label="Contraseña"
+                    variant="outlined"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
-        {/* Cuarta fila: Dirección */}
-        <Grid container spacing={2} mt={2}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              required
-              name="address"
-              label="Dirección"
-              value={formData.address}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              required
-              name="pricing"
-              label="Plan de Precios"
-              value={formData.pricing}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+              <Grid container spacing={2} mt={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    select
+                    name="plan"
+                    label="Seleccione un Plan"
+                    value={formData.pricing.plan}
+                    onChange={handlePricingChange}
+                    variant="outlined"
+                  >
+                    <MenuItem value="basic">Basic</MenuItem>
+                    <MenuItem value="premium">Premium</MenuItem>
+                    <MenuItem value="enterprise">Enterprise</MenuItem>
+                  </TextField>
+                </Grid>
 
-    
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    name="payDay"
+                    label="Fecha de Pago"
+                    type="date"
+                    InputLabelProps={{ shrink: true }}
+                    value={formData.pricing.payDay}
+                    onChange={handlePricingChange}
+                    variant="outlined"
+                  />
+                </Grid>
+              </Grid>
 
-        {/* Botón de Guardar */}
-        <Button
-          variant="contained"
-          style={{
-            backgroundColor: "#00455E",
-            color: "#fff",
-            marginTop: "16px", // Espacio entre secciones
-          }}
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
-      </FormControl>
-    </Box>
-  </AccordionDetails>
-</Accordion>
-
-
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#00455E",
+                  color: "#fff",
+                  marginTop: "16px",
+                }}
+                type="submit"
+                fullWidth
+              >
+                Guardar
+              </Button>
+            </FormControl>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 }

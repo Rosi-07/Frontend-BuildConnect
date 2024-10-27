@@ -58,7 +58,7 @@ function AddUser({ reset, setReset }) {
     event.preventDefault();
     const { home, mobile, ...rest } = formData;
     try {
-      await api.post("api/users", {
+      await api.post("/users", {
         ...rest,
         phone: {
           home,
