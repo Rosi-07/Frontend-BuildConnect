@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Payment() {
   
@@ -9,24 +8,72 @@ function Payment() {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  
   
   const navigate = useNavigate(); // Inicializamos el hook de navegación
+  const location = useLocation();
+
+  
+  const selectedSubscription = location.state?.subscription || 'Básica';
+  
+  const validateCardNumber = (number) => {
+    const regex = /^\d{16}$/;
+    return regex.test(number);
+  };
+
+  const validateExpiryDate = (date) => {
+    const regex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    return regex.test(date);
+  };
+
+  const validateCVV = (cvv) => {
+    const regex = /^\d{3}$/;
+    return regex.test(cvv);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Evita la recarga de la página
+    e.preventDefault();
+    setError('');
+    setMessage('');
 
-    // Simulación de un proceso de pago
-    setMessage(`Pago procesado con éxito para ${name}!`);
+    if (!validateCardNumber(cardNumber)) {
+      setError('Número de tarjeta inválido');
+      return;
+    }
 
-    // Limpiar los campos después de enviar el formulario
-    setName('');
-    setCardNumber('');
-    setExpiryDate('');
-    setCvv('');
+    if (!validateExpiryDate(expiryDate)) {
+      setError('Fecha de vencimiento inválida. El formato es: MM/AA');
+      return;
+    }
 
-    // Redirigir a la vista del perfil de la empresa
-    navigate('/companyProfile'); // Aquí redirigimos a la nueva vista
-  };
+    if (!validateCVV(cvv)) {
+      setError('CVV inválido');
+      return;
+    }
+    
+    //Simulación del proceso de pago
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setMessage('Pago procesado con éxito para la suscripción ${selectedSubscription}!');
+      
+      //Limpiar los campos
+      
+      setName('');
+      setCardNumber('');
+      setExpiryDate('');
+      setCvv('');
+
+      // Redirigir a la vista del perfil de la empresa después de un breve tiempo
+      setTimeout(() => {
+        navigate('/companyProfile');
+      }, 2000);
+     }, 3000); // Simulación de un retraso de 3 segundos para el pago
+    };
+    
 
   return (
     <div className="max-w-4xl mx-auto font-[sans-serif] p-6">
@@ -86,18 +133,24 @@ function Payment() {
           <button
             type="submit"
             className="py-3.5 px-7 text-sm font-semibold tracking-wider rounded-md text-white bg-[#00455E] hover:bg-[#00455eb6] transition-all"
+            disabled={loading}
           >
-            Procesar Pago
+            {loading ? 'Procesando...' : 'Procesar Pago'}
           </button>
         </div>
       </form>
+      {error && (
+        <div className="mt-6 font-semibold text-center text-red-500">
+          {error}
+        </div>
+      )}
       {message && (
         <div className="mt-6 font-semibold text-center text-green-500">
           {message}
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default Payment

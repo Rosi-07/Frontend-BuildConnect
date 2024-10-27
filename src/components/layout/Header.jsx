@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { FaHome, FaProjectDiagram, FaInfoCircle, FaEnvelope, FaSignInAlt } from 'react-icons/fa'; 
+import { FaHome, FaProjectDiagram, FaInfoCircle, FaEnvelope, FaSignInAlt, FaUserCircle,  } from 'react-icons/fa'; 
 import { Link } from 'react-router-dom';
+import useAuthStore from '../../hooks/auth/useAuth';
+import useLogout from '../../hooks/auth/useLogout';
 
 const Header = () => {
+  const { auth } = useAuthStore();
   const [nav, setNav] = useState(false);
+  const logout = useLogout();
 
   const handleNav = () => {
     setNav(!nav);
@@ -18,11 +22,10 @@ const Header = () => {
   };
 
   const navItems = [
-    { id: 1, text: 'Inicio', icon: <FaHome />, route: '/home' },
-    { id: 2, text: 'Proyectos', icon: <FaProjectDiagram />, route: '/projects' },
+    { id: 1, text: 'Inicio', icon: <FaHome />, route: '/' },
+    { id: 2, text: 'Proyectos', icon: <FaProjectDiagram />, route: '/marketplace' },
     { id: 3, text: 'Sobre Nosotros', icon: <FaInfoCircle />, route: '#' },
     { id: 4, text: 'Contáctanos', icon: <FaEnvelope />, route: '/contactUs' },
-    { id: 5, text: 'Iniciar Sesión', icon: <FaSignInAlt />, route: '/login' },
   ];
 
   return (
@@ -32,18 +35,50 @@ const Header = () => {
       </h1>
 
       <ul className='hidden md:flex whitespace-nowrap'>
-        {navItems.map(item => (
-          <li key={item.id} className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
-            <Link to={item.route}
-             className="flex items-center text-white"
-             onClick={item.id === 3 ? handleScrollToFooter : undefined}
-             >
-              <span className='mr-2'>{item.icon}</span>
-              {item.text}
+      {/* Mapeo de los elementos de navegación */}
+      {navItems.map(item => (
+        <li
+          key={item.id}
+          className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'
+        >
+          <Link
+            to={item.route}
+            className='flex items-center text-white'
+            onClick={item.id === 3 ? handleScrollToFooter : undefined}
+          >
+            <span className='mr-2'>{item.icon}</span>
+            {item.text}
+          </Link>
+        </li>
+      ))}
+
+<li className='flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300 hover:text-gray-600'>
+          {(auth?.user?.role || auth?.company?.role) ? (
+            <Link to='/userProfile' className='flex items-center text-white'> {/* Enlace a la vista de perfil */}
+              <FaUserCircle className='mr-2' />
+              <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
             </Link>
+          ) : (
+            <Link to='/login' className='flex items-center text-white'>
+              <FaSignInAlt className='mr-2' />
+              Iniciar Sesión
+            </Link>
+        )}
+      </li>
+
+      {
+        auth?.user?.role || auth?.company?.role ? (
+          <li className='flex items-center p-4 m-2 duration-300 cursor-pointer hover:bg-red-400 rounded-xl hover:text-gray-600'>
+            <div onClick={logout} className='flex items-center text-white'>
+              <FaSignInAlt className='mr-2' />
+              Cerrar Sesión
+            </div>
           </li>
-        ))}
-      </ul>
+        ) : null
+      }
+
+
+    </ul>
 
       <div onClick={handleNav} className='block md:hidden'>
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}

@@ -14,7 +14,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || { pathname: "/home" };
+  const from = location.state?.from || { pathname: "/" };
 
   const emailRef = useRef();
 
@@ -35,7 +35,7 @@ const Login = () => {
 
   const login = async (email, password) => {
     return await api.post(
-      "api/auth/login",
+      "/auth/login",
       { email, password },
       {
         headers: {
@@ -197,11 +197,7 @@ const Login = () => {
           </div>
 
           <div className="p-8 md:h-full bg-slate-100 rounded-xl lg:p-12">
-            <img
-              src="https://readymadeui.com/signin-image.webp"
-              class="w-full h-full object-contain"
-              alt="login-image"
-            />
+          <img src="https://readymadeui.com/signin-image.webp" className="object-contain w-full h-full" alt="login-image" />
           </div>
         </div>
       </div>

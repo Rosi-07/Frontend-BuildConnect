@@ -32,7 +32,7 @@ function RegisterCompany() {
 
     try {
  
-      const response = await api.post("api/auth/register-company", {
+      const response = await api.post("auth/register-company", {
         legalId: companyData.legalId || '',  
         name: companyData.name || '',
         email: companyData.email,
