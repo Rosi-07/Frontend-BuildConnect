@@ -9,7 +9,7 @@ import useAxiosPrivate from "../../../../hooks/auth/useAxiosPrivate";
 import Button from "@mui/material/Button";
 import { create } from "zustand";
 import { useSnackbar } from "notistack";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import { FormControl } from "@mui/material";
 
@@ -56,7 +56,7 @@ function AddUser({ reset, setReset }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { home, mobile, ...rest } = formData;
+    const { role, home, mobile, ...rest } = formData;
     try {
       await api.post("/users", {
         ...rest,
@@ -64,6 +64,7 @@ function AddUser({ reset, setReset }) {
           home,
           mobile,
         },
+        role: "admin",
       });
       resetFormData();
       setReset(!reset);
@@ -87,144 +88,127 @@ function AddUser({ reset, setReset }) {
 
   return (
     <>
-     <Accordion>
-  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-    <Typography>Agregar Usuario</Typography>
-  </AccordionSummary>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Agregar Usuario</Typography>
+        </AccordionSummary>
 
-  <AccordionDetails>
-    <Box
-      component="form"
-      sx={{
-        mt: 1,
-        width: "100%", 
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
-      <FormControl fullWidth>
-    
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="text"
-              name="name"
-              label="Nombre"
-              variant="outlined"
-              value={formData.name}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="text"
-              name="lastName"
-              label="Primer Apellido"
-              variant="outlined"
-              value={formData.lastName}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="text"
-              name="lastName2"
-              label="Segundo Apellido"
-              variant="outlined"
-              value={formData.lastName2}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+        <AccordionDetails>
+          <Box
+            component="form"
+            sx={{
+              mt: 1,
+              width: "100%",
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <FormControl fullWidth>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="name"
+                    label="Nombre"
+                    variant="outlined"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="lastName"
+                    label="Primer Apellido"
+                    variant="outlined"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="text"
+                    name="lastName2"
+                    label="Segundo Apellido"
+                    variant="outlined"
+                    value={formData.lastName2}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
-   
-        <Grid container spacing={2} mt={4}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="email"
-              name="email"
-              label="Correo Electrónico"
-              variant="outlined"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="password"
-              name="password"
-              label="Contraseña"
-              variant="outlined"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              required
-              type="text"
-              name="role"
-              label="Rol"
-              variant="outlined"
-              value={formData.role}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
+              <Grid container spacing={2} mt={4}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="email"
+                    name="email"
+                    label="Correo Electrónico"
+                    variant="outlined"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="password"
+                    name="password"
+                    label="Contraseña"
+                    variant="outlined"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
+              <Grid container spacing={2} mt={4}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    required
+                    name="home"
+                    label="Teléfono principal"
+                    value={formData.home}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    name="mobile"
+                    label="Teléfono móvil"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
 
-        <Grid container spacing={2} mt={4}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              required
-              name="home"
-              label="Teléfono principal"
-              value={formData.home}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              name="mobile"
-              label="Teléfono móvil"
-              value={formData.mobile}
-              onChange={handleInputChange}
-            />
-          </Grid>
-        </Grid>
-
-    
-        <Button
-          variant="contained"
-          style={{
-            backgroundColor: "#00455E",
-            color: "#fff",
-            marginTop: "16px", 
-            width: "100%",     
-          }}
-          type="submit"
-        >
-          Guardar
-        </Button>
-      </FormControl>
-    </Box>
-  </AccordionDetails>
-</Accordion>
-
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#00455E",
+                  color: "#fff",
+                  marginTop: "16px",
+                  width: "100%",
+                }}
+                type="submit"
+              >
+                Guardar
+              </Button>
+            </FormControl>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 }

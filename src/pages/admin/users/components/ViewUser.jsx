@@ -1,42 +1,39 @@
+import { Box, Typography, Button, Divider } from "@mui/material";
 
-import { Box, Typography, Button } from "@mui/material";
-
-
-function ViewUser({user, onClose}) {
-    if (!user) return null;
-
+function ViewUser({ user, onClose }) {
+  if (!user || typeof user !== "object") return null; // Asegúrate de que hay datos para mostrar
 
   return (
-   <>
-    <Box 
-      sx={{ 
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         padding: 3,
-        bgcolor: 'white', 
+        bgcolor: "white",
         borderRadius: 2,
         boxShadow: 3,
-        width: 400, 
-        margin: 'auto', 
+        width: { xs: "90%", sm: 400 },
+        margin: "auto",
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Detalles del Usuario
       </Typography>
+      <Divider sx={{ width: "100%", marginBottom: 2 }} />
 
       <Typography variant="body1">
-        <strong>Nombre:</strong> {user.name}
+        <strong>Nombre:</strong> {user.name || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Primer apellido:</strong> {user.lastName}
+        <strong>Primer Apellido:</strong> {user.lastName || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Segundo apellido:</strong> {user.lastName2 || "N/A"}
+        <strong>Segundo Apellido:</strong> {user.lastName2 || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Correo:</strong> {user.email}
+        <strong>Correo Electrónico:</strong> {user.email || "N/A"}
       </Typography>
       <Typography variant="body1">
         <strong>Teléfono Móvil:</strong> {user.phone?.mobile || "N/A"}
@@ -45,7 +42,7 @@ function ViewUser({user, onClose}) {
         <strong>Teléfono Fijo:</strong> {user.phone?.home || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Rol:</strong> {user.role}
+        <strong>Rol:</strong> {user.role || "N/A"}
       </Typography>
 
       <Box sx={{ marginTop: 2 }}>
@@ -54,9 +51,7 @@ function ViewUser({user, onClose}) {
         </Button>
       </Box>
     </Box>
-    
-   </>
-  )
+  );
 }
 
-export default ViewUser
+export default ViewUser;
