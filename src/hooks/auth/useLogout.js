@@ -11,7 +11,7 @@ const useLogout = () => {
             });
 
             setAuth({
-                user: {},
+                user: null,
                 accessToken: null,
             });
         } catch (error) {

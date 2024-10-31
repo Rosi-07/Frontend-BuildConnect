@@ -3,7 +3,7 @@ import { create } from "zustand";
 const useAuthStore = create(
         (set) => ({
             auth: {
-                user: {},
+                user: null,
                 accessToken: null,
             },
             persist: localStorage.getItem("persist") === "true" ? true : false,

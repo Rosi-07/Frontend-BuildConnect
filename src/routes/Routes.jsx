@@ -8,7 +8,7 @@ import AboutUs from "../pages/aboutUs/AboutUs.jsx";
 import RegisterType from "../pages/register/RegisterType.jsx";
 import RegisterUser from "../pages/register/registerUser/RegisterUser.jsx";
 import RegisterCompany from "../pages/register/registerCompany/RegisterCompany.jsx";
-    // import ProjectMarketplace from "../pages/projectMarketplace/ProjectMarketplace.jsx";
+import ProjectMarketplace from "../pages/projectMarketplace/ProjectMarketplace.jsx";
 import ProjectDetails from "../pages/projectDetails/ProjectDetails.jsx";
 import Unauthorized from '../pages/unauthorized/unauthorized.jsx';
 import PersistLogin from '../components/auth/PersistLogin.jsx';
@@ -28,11 +28,11 @@ const routes = (
             <Route path="/register" element={<RegisterType />} />
             <Route path="/registerUser" element={<RegisterUser />} />
             <Route path="/registerCompany" element={<RegisterCompany />} />
-            {/* <Route path="/marketplace" element={<ProjectMarketplace />} />
+            <Route path="/marketplace" element={<ProjectMarketplace />} />
             <Route element={<RequireAuth allowedRoles={['admin', 'company']} />}>
                <Route path="/marketplace/:id" element={<ProjectDetails />} />
             </Route>
-            <Route path="/unauthorized" element={<Unauthorized />} /> */}
+            <Route path="/unauthorized" element={<Unauthorized />} />
 
                    </Route>
       </Route>
