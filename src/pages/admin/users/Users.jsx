@@ -8,16 +8,15 @@ function Users() {
 
   return (
     <>
-    <Sidebar />
-    <div className="m-10 shadow-lg">
-     
-      <div className="mb-5">
-        <AddUser reset={reset} setReset={setReset} />
+      <Sidebar />
+      <div className="m-10 shadow-lg">
+        <div className="mb-5">
+          <AddUser reset={reset} setReset={setReset} />
+        </div>
+        <div className="">
+          <UsersTable reset={reset} setReset={setReset} />
+        </div>
       </div>
-      <div className="">
-        <UsersTable reset={reset} setReset={setReset} />
-      </div>
-    </div>
     </>
   );
 }

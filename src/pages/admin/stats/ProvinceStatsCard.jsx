@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -52,38 +53,43 @@ const cardStyles = {
   },
 };
 
-const CompanyCards = () => {
+const ProvinceStatsCard = ({ title, projects = [] }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const projectData = {
-    "Trabajo en Vidrios": 30,
-    "Reconstrucción de Casas": 40,
-    "Instalación Eléctrica": 20,
-    "Pintura de Interiores": 10,
-  };
+  const provinceCounts = projects.reduce((acc, project) => {
+    if (project.location && project.location.province) {
+      const province = project.location.province.trim().toLowerCase();
+      console.log(`Contando provincia: ${province}`);
 
-  const data = Object.entries(projectData).map(([category, count], id) => ({
+      acc[province] = (acc[province] || 0) + 1;
+    } else {
+      console.warn("Proyecto sin provincia:", project);
+    }
+    return acc;
+  }, {});
+
+  const data = Object.entries(provinceCounts).map(([province, count], id) => ({
     id,
     value: count,
-    label: category,
+    label: province.charAt(0).toUpperCase() + province.slice(1),
   }));
 
   return (
-    <Card className={clsx("company-cards", cardStyles.card)}>
+    <Card className={clsx("district-stats-card", cardStyles.card)}>
       <CardContent
-        className={clsx("company-cards-content", cardStyles.content)}
+        className={clsx("district-stats-content", cardStyles.content)}
       >
         <Typography
           variant="h5"
           component="h2"
-          className={clsx("company-cards-title", cardStyles.title)}
+          className={clsx("district-stats-title", cardStyles.title)}
         >
-          Categorías de Proyectos
+          {title}
         </Typography>
         <Box
           className={clsx(
-            "company-cards-chart-container",
+            "district-stats-chart-container",
             cardStyles.chartContainer
           )}
         >
@@ -108,4 +114,4 @@ const CompanyCards = () => {
   );
 };
 
-export default CompanyCards;
+export default ProvinceStatsCard;

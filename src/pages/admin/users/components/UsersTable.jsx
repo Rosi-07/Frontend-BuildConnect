@@ -1,9 +1,4 @@
-import {
-  DataGrid,
-  // esES,
-  GridToolbar,
-  GridActionsCellItem,
-} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,7 +9,7 @@ import ReusableModal from "../../../../components/modal/ReusableModal";
 import UpdateUser from "./UpdateUser";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import ViewUser from "./ViewUser";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function UsersTable({ reset, setReset }) {
   const api = useAxiosPrivate();
@@ -33,13 +28,14 @@ function UsersTable({ reset, setReset }) {
         const response = await api.get("/users");
         setUsers(response.data);
       } catch (error) {
-        console.error(error);
+        enqueueSnackbar("Error al obtener los usuarios", {
+          variant: "error",
+        });
       }
     };
     fetchUsers();
   }, [api, reset]);
 
-  console.log(users); 
 
   const handleOpenModal = (user) => {
     setSelectedUser(user);
@@ -73,31 +69,8 @@ function UsersTable({ reset, setReset }) {
 
   const columns = [
     {
-      field: "Nombre completo",
-      flex: 1,
-      valueGetter: (value, row) => {
-        return `${row.name} ${row.lastName} ${row.lastName2}`;
-      },
-    },
-    {
-      field: "phone.home",
-      headerName: "Teléfono",
-      flex: 1,
-      valueGetter: (value, row) => {
-        return row.phone.home || "Sin teléfono";
-      },
-    },
-    {
-      field: "phone.mobile",
-      headerName: "Celular",
-      flex: 1,
-      valueGetter: (value, row) => {
-        return row.phone.mobile || "Sin celular";
-      },
-    },
-    {
       field: "email",
-      headerName: "Correo",
+      headerName: "Email",
       flex: 1,
     },
     {
@@ -155,7 +128,7 @@ function UsersTable({ reset, setReset }) {
       });
     }
     handleCloseDeleteDialog();
-  }
+  };
 
   return (
     <>
@@ -166,7 +139,6 @@ function UsersTable({ reset, setReset }) {
               boxShadow: 2,
             }}
             style={{ height: 500, width: "100%" }}
-            //  localeText={esES.components.MuiDataGrid.defaultProps.localeText}
             rows={users}
             getRowId={(row) => row.id}
             loading={users.length === 0}
@@ -212,7 +184,7 @@ function UsersTable({ reset, setReset }) {
           open={openDeleteDialog}
           onClose={handleCloseDeleteDialog}
           title="Eliminar Usuario"
-          content={`¿Estás seguro de que deseas eliminar a ${selectedUser.name} ${selectedUser.lastName}?`}
+          content={`¿Estás seguro de que deseas eliminar a ${selectedUser.email}?`}
           onConfirm={handleDeleteUser}
         />
       )}
@@ -222,10 +194,7 @@ function UsersTable({ reset, setReset }) {
         onClose={handleCloseViewDialog}
         title="Ver Usuario"
         children={
-          <ViewUser
-            user={selectedUser}
-            onClose={handleCloseViewDialog}
-          />
+          <ViewUser user={selectedUser} onClose={handleCloseViewDialog} />
         }
       ></ReusableModal>
     </>
