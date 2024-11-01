@@ -42,7 +42,7 @@ function ViewCompany({ company, onClose }) {
         <strong>ID Legal:</strong> {company.legalId || "N/A"}
       </Typography>
       <Typography variant="body1">
-        <strong>Plan de Precios:</strong> {company.pricing?.plan || "N/A"}
+        <strong>Plan de Precios:</strong> {company.pricing?.plan || "Caducado o sin plan"}
       </Typography>
       <Typography variant="body1">
         <strong>Día de Pago:</strong> {company.pricing?.payDay || "N/A"}
