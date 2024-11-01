@@ -1,27 +1,46 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import { FaUserTie, FaBuilding } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+import userStore from '../../stores/userStore';
 
+function RegisterType({ handleNext }) {
+  const { setUserProperty } = userStore();
 
-function RegisterType() {
-    return (
-        <div className="bg-blue-50 h-screen overflow-hidden flex items-center justify-center">
-            <div className="bg-gray-50 lg:w-6/12 md:7/12 w-8/12 shadow-3xl rounded-xl">
-                <form className="p-12 md:p-24">
-                    <div className='mb-8'>
-                    <Link to="/RegisterUser">
-                        <button  className="bg-gradient-to-b from-gray-500 to-gray-800 font-medium p-2 md:p-4 text-white uppercase w-full rounded">Cliente</button>
-                    </Link >
-                    </div>
-                    
-                    <div>
-                    <Link to="/RegisterCompany">
-                        <button className="bg-gradient-to-b from-gray-500 to-gray-800 font-medium p-2 md:p-4 text-white uppercase w-full rounded">Empresa</button>
-                        </Link>
-                    </div>
-                </form>
-            </div>
+  return (
+    <div className='bg-white border border-gray-200 shadow-xl rounded-xl'>
+      <div className='p-10 md:p-16'>
+        <h2 className='mb-8 text-2xl font-bold text-center text-gray-700 md:text-3xl'>
+          Elige tu tipo de registro
+        </h2>
+        <div className='mb-6'>
+          <button
+            onClick={() => {
+              handleNext(1)
+              setUserProperty('role', 'owner')
+            }}
+            className='flex items-center justify-center w-full gap-2 p-3 text-lg font-semibold text-gray-800 uppercase transition-all duration-200 bg-yellow-500 rounded shadow-md hover:bg-yellow-600 md:p-4'
+          >
+            <FaUserTie className='text-xl' />
+            Cliente
+          </button>
         </div>
-    )
+        <div>
+          <button
+            onClick={() => {
+              handleNext(1)
+              setUserProperty('role', 'company')
+            }}
+            className='flex items-center justify-center w-full gap-2 p-3 text-lg font-semibold text-white uppercase transition-all duration-200 bg-gray-700 rounded shadow-md hover:bg-gray-800 md:p-4'
+          >
+            <FaBuilding className='text-xl' />
+            Empresa
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
+RegisterType.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
 
-export default RegisterType
+export default RegisterType;
