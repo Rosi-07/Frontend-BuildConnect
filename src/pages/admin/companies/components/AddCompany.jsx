@@ -218,6 +218,7 @@ function AddCompany({ reset, setReset }) {
                 <Grid item xs={6}>
                   <TextField
                     fullWidth
+                    disabled
                     name="payDay"
                     label="Fecha de Pago"
                     type="date"

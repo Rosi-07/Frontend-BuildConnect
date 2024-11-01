@@ -1,28 +1,43 @@
-import api from "../../database/api";
 import Sidebar from "./components/Sidebar";
 import { useState, useEffect } from "react";
 import StatsCard from "./stats/StatsCard";
 import { Box, Grid } from "@mui/material";
-import CompanyCards from "./stats/CompanyCards";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
+import TotalProjectsCard from "./stats/TotalProjectsCard";
+import ProvinceStatsCard from "./stats/ProvinceStatsCard";
+import CantonStatsCard from "./stats/CantonStatsCard";
+import { Person, Business, Category } from "@mui/icons-material";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 function Admin() {
   const api = useAxiosPrivate();
   const [usuarios, setUsuarios] = useState([]);
   const [empresas, setEmpresas] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [projectType, setProjectType] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [usuariosResponse, empresasResponse, categoriesResponse] = await Promise.all([
-          api.get("api/users"),
-          api.get("api/projects"),
-          api.get("api/categories"),
+        const [
+          usuariosResponse,
+          empresasResponse,
+          categoriesResponse,
+          projectsResponse,
+          projectTypeResponse,
+        ] = await Promise.all([
+          api.get("users"),
+          api.get("companies"),
+          api.get("categories"),
+          api.get("projects"),
+          api.get("project-type"),
         ]);
 
         setUsuarios(usuariosResponse.data);
         setEmpresas(empresasResponse.data);
+        setProjects(projectsResponse.data);
+        setProjectType(projectTypeResponse.data);
         setCategories(
           categoriesResponse.data.map((category) => ({
             name: category.name,
@@ -37,34 +52,83 @@ function Admin() {
     fetchData();
   }, []);
 
-  console.log(categories);
-
   return (
     <>
       <Sidebar />
-      <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", p: 20 }}>
-        
+      <Box
+        sx={{
+          display: "flex",
 
-        <Grid container spacing={2} justifyContent="center" alignItems="stretch" marginBottom={4}>
-          <Grid item xs={12} md={4}>
-            <StatsCard title="Usuarios" value={usuarios.length} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StatsCard title="Empresas" value={empresas.length} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <StatsCard title="Categorías" value={categories.length} />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
-          <Grid item xs={12} md={8}>
+          justifyContent: "center",
+          alignItems: "center",
+          p: 4,
+        }}
+      >
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="stretch"
+        >
+          <Grid item xs={12} md={6}>
             <Box sx={{ p: 2 }}>
-              <CompanyCards categories={categories} />
+              <div>
+                <ProvinceStatsCard
+                  title="Proyectos por Provincia"
+                  projects={projects}
+                />
+              </div>
+            </Box>
+            <Box sx={{ p: 2 }}>
+              <div>
+                <CantonStatsCard
+                  title="Proyectos por Cantón"
+                  projects={projects}
+                />
+              </div>
             </Box>
           </Grid>
-        </Grid>
 
+          <Grid item xs={12} md={6} marginTop={10}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <StatsCard
+                  title="Usuarios"
+                  value={usuarios.length}
+                  icon={<Person />}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <StatsCard
+                  title="Empresas"
+                  value={empresas.length}
+                  icon={<Business />}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <StatsCard
+                  title="Categorias"
+                  value={categories.length}
+                  icon={<Category />}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <TotalProjectsCard projects={projects} />
+              </Grid>
+
+              <Grid item xs={6}>
+                <StatsCard
+                  title="Tipos de proyectos"
+                  value={projectType.length}
+                  icon={<AssignmentTurnedInIcon />}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </Box>
     </>
   );
