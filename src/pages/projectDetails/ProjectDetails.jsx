@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
+import useAuthStore from "../../hooks/auth/useAuth";
+import { useSnackbar } from "notistack";
 
 const ProjectDetails = () => {
+  const  auth  = useAuthStore(state => state.auth);
   const { id } = useParams();
   const api = useAxiosPrivate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  console.log(auth);
+
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -46,8 +53,31 @@ const ProjectDetails = () => {
     );
   }
 
+  const handleSubscribe = async () => {
+    try {
+      await api.post(`companies/${auth.user.id}/projects/${project.id}`);
+      enqueueSnackbar("Subscripción exitosa", {
+        variant: "success",
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+      });
+    } catch (err) {
+      enqueueSnackbar("Error al subscribirse", {
+        variant: "error",
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen p-10 bg-white">
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={handleSubscribe}
+          className="px-6 py-2 font-semibold text-white bg-[#00455E] rounded-lg shadow-md transition duration-200 hover:bg-[#FFAE00]"
+        >
+          Postular
+        </button>
+      </div>
       <div className="flex flex-col items-start p-8 mb-10 space-y-6 bg-white shadow-lg rounded-xl md:flex-row md:space-y-0 md:space-x-10">
         <img
           src="https://www.simplespex.co.uk/wp-content/uploads/2013/06/frame_repair.png"
