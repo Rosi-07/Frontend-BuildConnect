@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../../database/api';
+import { useSnackbar } from 'notistack';
 
 function RegisterCompany() {
+  const snackbar = useSnackbar();
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -128,6 +131,9 @@ function RegisterCompany() {
 
       if (response.status === 201) {
         setErrorMsg('');
+        snackbar.enqueueSnackbar('Usuario registrado correctamente', {
+          variant: 'success',
+        });
         /* navigate(from, { replace: true }); */
       } else if (response.status === 400) {
         const data = await response.json();
@@ -137,8 +143,11 @@ function RegisterCompany() {
       }
     } catch (error) {
       console.log(error);
-      setErrorMsg('Ocurrió un error al registrar el usuario.');
-    }
+      snackbar.enqueueSnackbar('Ocurrió un error al registrar el usuario.', {
+        variant: 'error',
+      });
+/*       setErrorMsg('Ocurrió un error al registrar el usuario.');
+ */    }
   };
 
   return (
@@ -351,7 +360,7 @@ function RegisterCompany() {
             type='submit'
             className='py-3.5 px-7 text-sm font-semibold tracking-wider rounded-md text-white bg-[#00455E] hover:bg-[#00455eb6] items-center'
           >
-            Aceptar
+            Registrar Cuenta
           </button>
         </div>
       </form>

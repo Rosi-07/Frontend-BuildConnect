@@ -6,7 +6,7 @@ const SearchBar = ({ onSearchChange }) => {
     <div className="flex items-center justify-center mb-6">
       <input 
         type="text" 
-        placeholder="Buscar por título o descripción" 
+        placeholder="Buscar por título, descripción, cantón o provincia" 
         onChange={onSearchChange}
         className="w-full p-2 text-black border md:w-1/2 rounded-l-md" 
       />

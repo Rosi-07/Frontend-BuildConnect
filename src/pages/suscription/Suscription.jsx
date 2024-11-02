@@ -13,7 +13,7 @@ function Suscription() {
     
   return (
     
-    <div className="flex items-center justify-center min-h-screen p-6 bg-blue-50">
+    <div className="flex items-center justify-center p-6 bg-blue-50">
             <div className="w-full max-w-4xl p-8 bg-white shadow-xl rounded-xl">
                 <h2 className="mb-4 text-2xl font-semibold text-center">Elige tu suscripción</h2>
                 

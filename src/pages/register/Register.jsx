@@ -3,11 +3,14 @@ import { Stepper, Step, StepLabel } from '@mui/material';
 import RegisterType from './RegisterType';
 import RegisterCompany from './registerCompany/RegisterCompany';
 import RegisterUser from './registerUser/RegisterUser';
+import Suscription from '../suscription/Suscription';
+import OwnerSubscription from '../suscription/OwnerSuscription';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const Register = () => {
   const [type, setType] = useState('');
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ['Tipo de Cuenta', 'Detalles', 'Plan', 'Confirmación'];
+  const steps = ['Tipo de Cuenta', 'Detalles', 'Plan'];
 
   const handleNext = () => {
     if (activeStep < steps.length - 1) {
@@ -38,8 +41,8 @@ const Register = () => {
           {activeStep === 0 && <RegisterType handleNext={handleNext} setType={setType} />}
           {(activeStep === 1 && type == 'owner') && <RegisterUser />}
           {(activeStep === 1 && type == 'company') && <RegisterCompany />}
-          {activeStep === 2 && <div>plan</div>}
-          {activeStep === 3 && <div>confirmación</div>}
+          {(activeStep === 2 && type == 'owner') && <OwnerSubscription />}
+          {(activeStep === 2 && type == 'company') && <Suscription />}
         </div>
 
         {activeStep > 0 && (
@@ -49,14 +52,14 @@ const Register = () => {
               className='px-4 py-2 text-sm font-semibold text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 disabled:opacity-50'
               disabled={activeStep === 0}
             >
-              Volver
+              <ArrowBackIosNewIcon />
             </button>
             <button
               onClick={handleNext}
-              className='px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50'
+              className='px-4 py-2 text-sm font-semibold text-white bg-[#00455E] rounded-md hover:bg-[#00555E] disabled:opacity-50'
               disabled={activeStep === steps.length - 1}
             >
-              Siguiente
+              <ArrowBackIosNewIcon style={{ transform: 'rotate(180deg)' }} />
             </button>
           </div>
         )}
