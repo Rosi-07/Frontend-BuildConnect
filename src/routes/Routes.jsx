@@ -14,6 +14,7 @@ import Users from '../pages/admin/users/Users.jsx';
 import Companies from '../pages/admin/companies/companies.jsx';
 import Register from '../pages/register/Register.jsx';
 import UserProfile from '../pages/userProfile/UserProfile.jsx';
+import BusinessCatalog from '../pages/businessCatalog/BusinessCatalog.jsx';
 
 const routes = (
   <>
@@ -25,7 +26,11 @@ const routes = (
         <Route path='/aboutUs' element={<AboutUs />} />
         <Route path='/contactUs' element={<ContactUs />} />
         <Route path='/marketplace' element={<ProjectMarketplace />} />
+        <Route element={<RequireAuth allowedRoles={['admin', 'owner']} />}>
           <Route path='/userProfile' element={<UserProfile />} />
+          <Route path='/project-details/:id' element={<ProjectDetails />} />
+          <Route path='/businessCatalog' element={<BusinessCatalog />} />
+        </Route>
         <Route element={<RequireAuth allowedRoles={['admin', 'company']} />}>
           <Route path='/marketplace/:id' element={<ProjectDetails />} />
         </Route>
