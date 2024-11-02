@@ -30,10 +30,10 @@ function BusinessCatalog() {
   }, [searchTerm, companies]);
 
   return (
-    <div className="container flex flex-col mx-auto mt-8 shadow-lg">
+    <div className="container flex flex-col h-full mx-auto mt-8 shadow-lg">
       <h1 className="py-4 text-3xl font-bold text-center">Catálogo de empresas</h1>
       <div className="flex flex-row">
-        <div className="flex flex-col justify-between w-1/3 p-4 bg-gray-100">
+        <div className="flex flex-col justify-between w-1/3 p-4 bg-gray-100 h-svh">
           <div className="mb-4">
             <input
               type="text"

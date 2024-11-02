@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
     const [userProfile, setUserProfile] = useState(null);
-    const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+    const [isProjectsOpen, setIsProjectsOpen] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
