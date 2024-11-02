@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/auth/useAxiosPrivate';
 import useAuthStore from '../../hooks/auth/useAuth';
 import ProjectModal from './components/ProjectModal';
-import { AddCircleOutlineRounded } from '@mui/icons-material';
+import { AddCircleOutlineRounded, MenuBookOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
@@ -44,18 +44,17 @@ const UserProfile = () => {
     if (error) return <div className="text-center text-red-500">Error: {error}</div>;
 
     return (
-        <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg">
-            <h2 className="mb-6 text-2xl font-semibold text-left text-gray-800">Perfil de Usuario</h2>
-
-            <div className="flex justify-end mb-6">
-        <button
-          className="px-4 py-2 text-white bg-[#00455e] rounded-lg"
-          onClick={() => navigate('/businessCatalog')}
-        >
-          Ir al Catálogo de Empresas
-        </button>
-      </div>
-
+            <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg">
+        <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-semibold text-left text-gray-800">Perfil de Usuario</h2>
+            <button
+                className="flex items-center px-4 py-2 text-[#00455E] border border-[#00455E] bg-white rounded-lg shadow-md hover:bg-[#f0f0f0] transition duration-200 ease-in-out"
+                onClick={() => navigate('/businessCatalog')}
+            >
+                <MenuBookOutlined/>
+                Ir al Catálogo de Empresas
+            </button>
+        </div>
             <div className="flex flex-col md:flex-row">
                 <div className="flex items-center justify-center mb-6 md:mb-0 md:mr-6">
                     <img

@@ -15,11 +15,14 @@ import Companies from '../pages/admin/companies/companies.jsx';
 import Register from '../pages/register/Register.jsx';
 import UserProfile from '../pages/userProfile/UserProfile.jsx';
 import BusinessCatalog from '../pages/businessCatalog/BusinessCatalog.jsx';
+import Payment from '../pages/payment/Payment.jsx';
+import CompanyProfile from '../pages/companyProfile/CompanyProfile.jsx';
 
 const routes = (
   <>
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<Register />} />
+    <Route path='/payment' element={<Payment />} />
     <Route element={<PersistLogin />}>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
@@ -33,6 +36,7 @@ const routes = (
         </Route>
         <Route element={<RequireAuth allowedRoles={['admin', 'company']} />}>
           <Route path='/marketplace/:id' element={<ProjectDetails />} />
+          <Route path='/companyProfile' element={<CompanyProfile />} />
         </Route>
         <Route path='/unauthorized' element={<Unauthorized />} />
       </Route>

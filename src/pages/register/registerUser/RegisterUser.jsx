@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../../database/api';
+import { useSnackbar } from 'notistack';
 
 const RegisterUser = () => {
   /* const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || { pathname: '/' }; */
+
+  const snackbar = useSnackbar();
 
   const [user, setUser] = useState({
     email: "",
@@ -114,6 +117,9 @@ const RegisterUser = () => {
 
       if (response.status === 201) {
         setErrorMsg("");
+        snackbar.enqueueSnackbar("Usuario registrado correctamente", {
+          variant: "success",
+        });
         /* navigate(from, { replace: true }); */
       } else if (response.status === 400) {
         const data = await response.json();
@@ -123,7 +129,10 @@ const RegisterUser = () => {
       }
     } catch (error) {
       console.log(error);
-      setErrorMsg("Error al conectar con el servidor. Inténtalo más tarde.");
+      snackbar.enqueueSnackbar("Error al registrar el usuario", {
+        variant: "error",
+      });
+      /* setErrorMsg("Error al conectar con el servidor. Inténtalo más tarde."); */
     }
   };
 
