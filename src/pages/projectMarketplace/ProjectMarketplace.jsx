@@ -1,59 +1,62 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import SearchBar from './components/SearchBar';
-import Filters from './components/Filters';
-import ProjectGrid from './components/ProjectGrid';
+import { useEffect, useState } from "react";
+import SearchBar from "./components/SearchBar";
+import Filters from "./components/Filters";
+import ProjectGrid from "./components/ProjectGrid";
+import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
 
 const ProjectMarketplace = () => {
+  const api = useAxiosPrivate();
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("Todos");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-
-        // Configuración del token
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJhQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyODA4MzQ3OH0.wo-LF1VkqZ7hksXGhwJ1FAksQdxviAoCMeI7xrZn700';
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        // Llamada a la API con el token
-        const response = await axios.get('http://localhost:3000/api/projects/', config);
+        const response = await api.get("projects");
         setProjects(response.data);
-        setFilteredProjects(response.data);
       } catch (err) {
-        console.log(err);
-        setError('Error fetching projects.');
+        setError("Error fetching projects.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [api]);
 
   useEffect(() => {
-    // Filtrar proyectos según el término de búsqueda
-    if (searchTerm === '') {
-      setFilteredProjects(projects);
-    } else {
-      const filtered = projects.filter(project =>
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchTerm.toLowerCase())
+    let filtered = projects;
+
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (project) =>
+          project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.location.canton.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.location.province.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredProjects(filtered);
     }
-  }, [searchTerm, projects]);
+
+    if (selectedFilter !== "Todos") {
+      filtered = filtered.filter((project) =>
+        project.types.some((type) => type.name === selectedFilter)
+      );
+    }
+
+    setFilteredProjects(filtered);
+  }, [searchTerm, projects, selectedFilter]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
   };
 
   if (loading) {
@@ -67,10 +70,10 @@ const ProjectMarketplace = () => {
   return (
     <div className="min-h-screen p-10">
       <SearchBar onSearchChange={handleSearchChange} />
-      <Filters />
+      <Filters onFilterChange={handleFilterChange} />
       <ProjectGrid projects={filteredProjects} />
     </div>
   );
-}
+};
 
 export default ProjectMarketplace;
