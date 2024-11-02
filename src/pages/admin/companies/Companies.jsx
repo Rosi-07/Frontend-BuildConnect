@@ -10,7 +10,7 @@ function Companies() {
     <Sidebar />
     <div className="m-10 shadow-lg">
       <div className="mb-2">
-        <AddCompany reset={reset} setReset={setReset} />
+        
       </div>
       <div className="">
         <CompaniesTable reset={reset} setReset={setReset} />
