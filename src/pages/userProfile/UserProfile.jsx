@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/auth/useAxiosPrivate';
 import useAuthStore from '../../hooks/auth/useAuth';
+import ProjectModal from './components/ProjectModal';
+import { AddCircleOutlineRounded } from '@mui/icons-material';
 
 const UserProfile = () => {
     const [userProfile, setUserProfile] = useState(null);
     const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const api = useAxiosPrivate();
@@ -126,7 +129,15 @@ const UserProfile = () => {
                 >
                     {isProjectsOpen ? 'Ocultar Proyectos' : 'Mostrar Proyectos'}
                 </button>
-
+                
+            <button 
+                onClick={() => setIsModalOpen(true)} 
+                className="mr-48 inline-block mt-3 ml-4 text-lg font-medium text-[#00455E]"
+            >
+         <AddCircleOutlineRounded/>
+            </button>
+            <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    
                 {isProjectsOpen && (
                     <div className="pt-4 mt-4 border-t">
                         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
