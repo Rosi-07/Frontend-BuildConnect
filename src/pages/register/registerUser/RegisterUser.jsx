@@ -1,15 +1,21 @@
 import { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from '../../../database/api';
-import userStore from '../../../stores/userStore';
 
 const RegisterUser = () => {
   /* const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || { pathname: '/' }; */
 
-  const user = userStore((state) => state.user);
-  const setUser = userStore((state) => state.setUserProperty);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    role: "owner",
+    contacts: {
+      emails: [],
+      numbers: [],
+    },
+  });
 
   const [Owner, setOwner] = useState({
     name: '',
@@ -28,7 +34,7 @@ const RegisterUser = () => {
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
-    setUser(name, value);
+    setUser({ ...user, [name]: value });
   };
 
   const handleOwnerChange = (e) => {
@@ -86,15 +92,25 @@ const RegisterUser = () => {
     e.preventDefault();
     setErrors([]);
 
+    console.log(user.password, confirmPassword);
+
     if (!comparePasswords()) return;
 
-    setUser('Owner', Owner);
-    setUser('contacts', contacts);
+    const newUser = {
+      email: user.email,
+      password: user.password,
+      role: user.role,
+      contacts: {
+        emails: contacts.emails,
+        numbers: contacts.numbers,
+      },
+      Owner: Owner,
+     };
 
-    console.log(user);
+    console.log(newUser);
 
     try {
-      const response = await api.post("auth/register/owners", user);
+      const response = await api.post("auth/register/owners", newUser);
 
       if (response.status === 201) {
         setErrorMsg("");
@@ -174,7 +190,7 @@ const RegisterUser = () => {
                 type='email'
                 className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
                 placeholder='Correo Electrónico'
-                /* value={} */
+                value={user.email}
                 onChange={handleUserChange}
               />
               {errors.find((error) => error.field === 'email') && (
@@ -189,7 +205,7 @@ const RegisterUser = () => {
                 type='password'
                 className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
                 placeholder='Contraseña'
-                /* value={user.password} */
+                value={user.password}
                 onChange={handleUserChange}
               />
               {errors.find((error) => error.field === 'password') && (

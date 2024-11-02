@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Stepper, Step, StepLabel } from '@mui/material';
 import RegisterType from './RegisterType';
-import RegisterUser from './registerCompany/RegisterCompany';
-import RegisterCompany from './registerUser/RegisterUser';
-import userStore from '../../stores/userStore';
+import RegisterCompany from './registerCompany/RegisterCompany';
+import RegisterUser from './registerUser/RegisterUser';
 
 const Register = () => {
-  const user = userStore((state) => state.user);
+  const [type, setType] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const steps = ['Tipo de Cuenta', 'Detalles', 'Plan', 'Confirmación'];
 
@@ -36,14 +35,9 @@ const Register = () => {
 
       <div className='flex flex-col items-center justify-center h-full bg-gray-100 row-span-9'>
         <div className='flex items-center justify-center'>
-          {activeStep === 0 && <RegisterType handleNext={handleNext} />}
-          {activeStep === 1 ? (
-            user?.role === 'company' ? (
-              <RegisterUser />
-            ) : (
-              <RegisterCompany />
-            )
-          ) : null}
+          {activeStep === 0 && <RegisterType handleNext={handleNext} setType={setType} />}
+          {(activeStep === 1 && type == 'owner') && <RegisterUser />}
+          {(activeStep === 1 && type == 'company') && <RegisterCompany />}
           {activeStep === 2 && <div>plan</div>}
           {activeStep === 3 && <div>confirmación</div>}
         </div>
