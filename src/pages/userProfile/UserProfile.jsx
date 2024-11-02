@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/auth/useAxiosPrivate';
 import useAuthStore from '../../hooks/auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
     const [userProfile, setUserProfile] = useState(null);
@@ -9,6 +10,7 @@ const UserProfile = () => {
     const [error, setError] = useState(null);
     const api = useAxiosPrivate();
     const { auth } = useAuthStore();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -41,6 +43,15 @@ const UserProfile = () => {
     return (
         <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg">
             <h2 className="mb-6 text-2xl font-semibold text-left text-gray-800">Perfil de Usuario</h2>
+
+            <div className="flex justify-end mb-6">
+        <button
+          className="px-4 py-2 text-white bg-[#00455e] rounded-lg"
+          onClick={() => navigate('/businessCatalog')}
+        >
+          Ir al Catálogo de Empresas
+        </button>
+      </div>
 
             <div className="flex flex-col md:flex-row">
                 <div className="flex items-center justify-center mb-6 md:mb-0 md:mr-6">
