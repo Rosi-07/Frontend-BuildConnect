@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSnackbar } from 'notistack'; 
 import useAxiosPrivate from '../../../hooks/auth/useAxiosPrivate';
 import useAuthStore from '../../../hooks/auth/useAuth';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const ProjectModal = ({ isOpen, onClose }) => {
     const { enqueueSnackbar } = useSnackbar(); 
@@ -22,7 +23,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
         },
         UserId: ''
     });
-
+   
     const api = useAxiosPrivate();
     const { auth } = useAuthStore();
 
@@ -47,8 +48,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const updatedData = { ...projectData, UserId: auth.userId };
-            await api.post('projects', updatedData);
+            await api.post('projects',  { ...projectData, UserId:auth?.user?.id});
             enqueueSnackbar("Proyecto añadido exitosamente", {
                 variant: "success",
                 anchorOrigin: {
@@ -79,7 +79,7 @@ const ProjectModal = ({ isOpen, onClose }) => {
             );
         }
     };
-
+console.log(auth);
     if (!isOpen) return null;
 
     return (
