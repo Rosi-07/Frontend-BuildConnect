@@ -2,6 +2,7 @@ import UsersTable from "./components/UsersTable";
 import AddUser from "./components/AddUser";
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Footer from "../../../components/layout/Footer";
 
 function Users() {
   const [reset, setReset] = useState(false);
@@ -17,6 +18,7 @@ function Users() {
           <UsersTable reset={reset} setReset={setReset} />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -6,7 +6,7 @@ import Header from "./Header.jsx";
 
 function Layout() {
   return (
-    <div className="w-full min-h-screen">
+    <div className="flex flex-col w-full min-h-screen ">
       <Header />
       <div className="flex-grow w-full">
         <Outlet />
