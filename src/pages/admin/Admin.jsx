@@ -7,7 +7,8 @@ import TotalProjectsCard from "./stats/TotalProjectsCard";
 import ProvinceStatsCard from "./stats/ProvinceStatsCard";
 import CantonStatsCard from "./stats/CantonStatsCard";
 import { Person, Business, Category } from "@mui/icons-material";
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import Footer from "../../components/layout/Footer";
+import Typography from "@mui/material/Typography";
 
 function Admin() {
   const api = useAxiosPrivate();
@@ -15,7 +16,6 @@ function Admin() {
   const [empresas, setEmpresas] = useState([]);
   const [categories, setCategories] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [projectType, setProjectType] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,19 +25,15 @@ function Admin() {
           empresasResponse,
           categoriesResponse,
           projectsResponse,
-          projectTypeResponse,
         ] = await Promise.all([
           api.get("users"),
           api.get("companies"),
           api.get("categories"),
           api.get("projects"),
-          api.get("project-type"),
         ]);
-
         setUsuarios(usuariosResponse.data);
         setEmpresas(empresasResponse.data);
         setProjects(projectsResponse.data);
-        setProjectType(projectTypeResponse.data);
         setCategories(
           categoriesResponse.data.map((category) => ({
             name: category.name,
@@ -57,79 +53,66 @@ function Admin() {
       <Sidebar />
       <Box
         sx={{
-          display: "flex",
-
-          justifyContent: "center",
-          alignItems: "center",
-          p: 4,
+          padding: 4,
+          backgroundColor: "#F4F6F8",
+          minHeight: "65vh",
         }}
       >
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          alignItems="stretch"
-        >
-          <Grid item xs={12} md={6}>
-            <Box sx={{ p: 2 }}>
-              <div>
-                <ProvinceStatsCard
-                  title="Proyectos por Provincia"
-                  projects={projects}
-                />
-              </div>
-            </Box>
-            <Box sx={{ p: 2 }}>
-              <div>
-                <CantonStatsCard
-                  title="Proyectos por Cantón"
-                  projects={projects}
-                />
-              </div>
-            </Box>
+        <Typography variant="h4" gutterBottom>
+          Panel de Administración
+        </Typography>
+
+        <Grid container spacing={3} sx={{ marginBottom: 8 }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsCard
+              title="Usuarios"
+              value={usuarios.length}
+              icon={<Person />}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
           </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsCard
+              title="Empresas"
+              value={empresas.length}
+              icon={<Business />}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StatsCard
+              title="Categorías"
+              value={categories.length}
+              icon={<Category />}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <TotalProjectsCard
+              projects={projects}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
+          </Grid>
+        </Grid>
 
-          <Grid item xs={12} md={6} marginTop={10}>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <StatsCard
-                  title="Usuarios"
-                  value={usuarios.length}
-                  icon={<Person />}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <StatsCard
-                  title="Empresas"
-                  value={empresas.length}
-                  icon={<Business />}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <StatsCard
-                  title="Categorias"
-                  value={categories.length}
-                  icon={<Category />}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <TotalProjectsCard projects={projects} />
-              </Grid>
-
-              <Grid item xs={6}>
-                <StatsCard
-                  title="Tipos de proyectos"
-                  value={projectType.length}
-                  icon={<AssignmentTurnedInIcon />}
-                />
-              </Grid>
-            </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <ProvinceStatsCard
+              title="Proyectos por Provincia"
+              projects={projects}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <CantonStatsCard
+              title="Proyectos por Cantón"
+              projects={projects}
+              sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
+            />
           </Grid>
         </Grid>
       </Box>
+      <Footer />
     </>
   );
 }
