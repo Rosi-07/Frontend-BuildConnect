@@ -152,211 +152,208 @@ function RegisterCompany() {
 
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] p-6'>
-    <div className='mb-10 text-center'>
-      <h4 className='inline-block pb-2 mt-3 text-xl font-medium text-gray-800 border-b-2 border-gray-300'>
-        Regístrate
-      </h4>
+      <div className='mb-10 text-center'>
+        <h4 className='inline-block pb-2 mt-3 text-xl font-medium text-gray-800 border-b-2 border-gray-300'>
+          Regístrate
+        </h4>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
+          <div>
+            <div className='flex justify-center'>
+              <input
+                name='legalId'
+                type='text'
+                value={Company.legalId}
+                onChange={handleCompanyChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Identificación Tributaria'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='name'
+                type='text'
+                value={Company.name}
+                onChange={handleCompanyChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Nombre de la compañía'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='description'
+                type='text'
+                value={Company.description}
+                onChange={handleCompanyChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Descripción de la compañía'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='mission'
+                type='text'
+                value={Company.mission}
+                onChange={handleCompanyChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Misión de la compañía'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='vision'
+                type='text'
+                value={Company.vision}
+                onChange={handleCompanyChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Visión de la compañía'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='province'
+                type='text'
+                value={address.province}
+                onChange={handleAddressChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Provincia'
+              />
+            </div>
+            <div >
+              {contacts.emails.map((email, index) => (
+                <div key={index} >
+                  <input
+                    name='emails'
+                    type='email'
+                    className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                    placeholder='Correo Electrónico'
+                    value={email}
+                    onChange={(e) => handleContactsChange(index, e)}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => deleteEmailInput(index)}
+                    className='ml-5 text-sm text-red-500'
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+              <button
+                type='button'
+                onClick={addEmailInput}
+                className='ml-5 text-sm text-blue-600'
+              >
+                Agregar correo
+              </button>
+            </div>
+          </div>
+  
+          <div>
+            <div className='flex justify-center'>
+              <input
+                name='canton'
+                type='text'
+                value={address.canton}
+                onChange={handleAddressChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Cantón'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='district'
+                type='text'
+                value={address.district}
+                onChange={handleAddressChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Distrito'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='streetDetails'
+                type='text'
+                value={address.streetDetails}
+                onChange={handleAddressChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Detalles de la dirección'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='email'
+                type='email'
+                value={user.email}
+                onChange={handleUserChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Correo Electrónico'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='password'
+                type='password'
+                value={user.password}
+                onChange={handleUserChange}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Contraseña'
+              />
+            </div>
+            <div className='flex justify-center'>
+              <input
+                name='cpassword'
+                type='password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                placeholder='Confirmar contraseña'
+              />
+            </div>
+            <div> 
+              {contacts.numbers.map((number, index) => (
+                <div key={index} >
+                  <input
+                    name='numbers'
+                    type='text'
+                    className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                    placeholder='Número de Teléfono'
+                    value={number}
+                    onChange={(e) => handleContactsChange(index, e)}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => deleteNumberInput(index)}
+                    className='ml-5 text-sm text-red-500'
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}    
+              <button
+                type='button'
+                onClick={addNumberInput}
+              className='ml-5 text-sm text-blue-600'
+              >
+                Agregar número
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div className='flex justify-center mt-6'>
+          <button
+            type='submit'
+            className='py-3.5 px-7 text-sm font-semibold tracking-wider rounded-md text-white bg-[#00455E] hover:bg-[#00455eb6] items-center'
+          >
+            Registrar Cuenta
+          </button>
+        </div>
+      </form>
     </div>
-    <form onSubmit={handleSubmit}>
-      <div className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
-        <div>
-          <div className='flex justify-center'>
-            <input
-              name='legalId'
-              type='text'
-              value={Company.legalId}
-              onChange={handleCompanyChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Identificación Tributaria'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='name'
-              type='text'
-              value={Company.name}
-              onChange={handleCompanyChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Nombre de la compañía'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='description'
-              type='text'
-              value={Company.description}
-              onChange={handleCompanyChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Descripción de la compañía'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='mission'
-              type='text'
-              value={Company.mission}
-              onChange={handleCompanyChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Misión de la compañía'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='vision'
-              type='text'
-              value={Company.vision}
-              onChange={handleCompanyChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Visión de la compañía'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='province'
-              type='text'
-              value={address.province}
-              onChange={handleAddressChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Provincia'
-            />
-          </div>
-        </div>
-  
-        <div>
-          <div className='flex justify-center'>
-            <input
-              name='canton'
-              type='text'
-              value={address.canton}
-              onChange={handleAddressChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Cantón'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='district'
-              type='text'
-              value={address.district}
-              onChange={handleAddressChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Distrito'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='streetDetails'
-              type='text'
-              value={address.streetDetails}
-              onChange={handleAddressChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Detalles de la dirección'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='email'
-              type='email'
-              value={user.email}
-              onChange={handleUserChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Correo Electrónico'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='password'
-              type='password'
-              value={user.password}
-              onChange={handleUserChange}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Contraseña'
-            />
-          </div>
-          <div className='flex justify-center'>
-            <input
-              name='cpassword'
-              type='password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-              placeholder='Confirmar contraseña'
-            />
-          </div>
-          <div>
-            {contacts.emails.map((email, index) => (
-              <div key={index}>
-                <input
-                  name='emails'
-                  type='email'
-                  className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-                  placeholder='Correo Electrónico'
-                  value={email}
-                  onChange={(e) => handleContactsChange(index, e)}
-                />
-                <button
-                  type='button'
-                  onClick={() => {
-                    deleteEmailInput(index);
-                  }}
-                  className='text-sm text-red-500'
-                >
-                  Eliminar
-                </button>
-              </div>
-            ))}
-            <button
-              type='button'
-              onClick={addEmailInput}
-              className='text-sm text-blue-600'
-            >
-              Agregar correo
-            </button>
-          </div>
-          <div>
-            {contacts.numbers.map((number, index) => (
-              <div key={index}>
-                <input
-                  name='numbers'
-                  type='text'
-                  className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
-                  placeholder='Número de Teléfono'
-                  value={number}
-                  onChange={(e) => handleContactsChange(index, e)}
-                />
-                <button
-                  type='button'
-                  onClick={() => {
-                    deleteNumberInput(index);
-                  }}
-                  className='text-sm text-red-500'
-                >
-                  Eliminar
-                </button>
-              </div>
-            ))}
-            <button
-              type='button'
-              onClick={addNumberInput}
-              className='text-sm text-blue-600'
-            >
-              Agregar número
-            </button>
-          </div>
-        </div>
-      </div>
-  
-      <div className='flex justify-center mt-6'>
-        <button
-          type='submit'
-          className='py-3.5 px-7 text-sm font-semibold tracking-wider rounded-md text-white bg-[#00455E] hover:bg-[#00455eb6] items-center'
-        >
-          Registrar Cuenta
-        </button>
-      </div>
-    </form>
-  </div>  
   );
+  
 }
 
 export default RegisterCompany;
