@@ -49,7 +49,7 @@ const CantonStatsCard = ({ title, projects = [] }) => {
 
       acc[canton] = (acc[canton] || 0) + 1;
     } else {
-      console.log("Project without canton", project);
+      console.error("Project missing location or canton", project);
     }
     return acc;
   }, {});

@@ -71,7 +71,7 @@ function AddCompany({ reset, setReset }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { role, landline, mobile, ...rest } = formData;
-    console.log(formData);
+
     try {
       await api.post("/companies", {
         ...rest,
