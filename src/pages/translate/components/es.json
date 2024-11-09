@@ -1,0 +1,79 @@
+{
+    "header": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "aboutUs": "Sobre Nosotros",
+         "contactUs": "Contáctanos",
+         "hello": "¡Hola!",
+         "login": "Iniciar Sesión",
+          "logout": "Cerrar Sesión"
+
+},
+    "home": {
+      "title": "Build Connect",
+      "subtitle": "Impulsa la Visibilidad de tus Necesidades",
+      "services": {
+        "sectionTitle": "Nuestros Servicios",
+        "projectPublication": {
+          "title": "Publicación de proyectos",
+          "description": "Nuestra plataforma te permite publicar fácilmente tus proyectos de construcción y remodelación. Nos encargamos de promover cada publicación para que alcance la máxima visibilidad entre las constructoras y profesionales del sector."
+        },
+        "supplierConnection": {
+          "title": "Conexión con proveedores",
+          "description": "Facilitamos la conexión directa entre quienes buscan servicios y las empresas que los ofrecen. Nuestra plataforma permite a las constructoras ver proyectos publicados y enviar propuestas adaptadas a las necesidades del cliente."
+        },
+        "requestManagement": {
+          "title": "Gestión de solicitudes",
+          "description": "Puedes gestionar todas tus solicitudes en un solo lugar. Desde la publicación inicial hasta la selección de la propuesta ideal, nuestra plataforma te facilita comparar y elegir las mejores ofertas para tu proyecto."
+        }
+      },
+      "aboutUs": {
+        "title": "¿Quiénes somos?",
+        "description": "BuildConnect es una plataforma innovadora formada por un grupo de estudiantes. Nuestra misión es simplificar el proceso de búsqueda y contratación de servicios de construcción, brindando un entorno intuitivo y transparente."
+      },
+      "whyUs": {
+        "title": "¿Por qué Nosotros?",
+        "visibility": "Visibilidad Máxima",
+        "competitiveRates": "Tarifas Competitivas",
+        "efficiency": "Eficiencia"
+      }
+    },
+    
+"footer": {
+    "contact": "Contacto",
+    "aboutUs": "Sobre nosotros",
+    "virtualIntermediaries": "Intermediarios virtuales",
+    "ourServices": "Nuestros servicios",
+    "allRightsReserved": "Todos los derechos reservados"
+        
+      },
+ "contactUs": {
+    "title": "Contáctanos",
+    "description": "Tienes preguntas o comentarios, no dudes en comunicarte con nosotros. Para una respuesta más rápida, te recomendamos contactarnos vía WhatsApp.",
+    "whatsapp": {
+      "title": "WhatsApp",
+      "phone": "+(506) 1234-6578"
+    },
+    "email": {
+      "title": "Email",
+      "address": "buildconnect@gmail.com"
+    },
+    "form": {
+      "namePlaceholder": "Nombre",
+      "emailPlaceholder": "Correo electrónico",
+      "messagePlaceholder": "Mensaje...",
+      "submitButton": "Enviar mensaje"
+    }
+  },
+    "login": {
+      "title": "Iniciar Sesión",
+      "registerPrompt": "¿Aún no tienes cuenta? ",
+      "registerLink": "Regístrate aquí",
+      "usernamePlaceholder": "Usuario",
+      "passwordPlaceholder": "Contraseña",
+      "rememberMe": "Recordar",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submitButton": "Iniciar Sesión"
+    }
+  }
+  

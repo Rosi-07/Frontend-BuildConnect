@@ -7,18 +7,29 @@ import {
   FaEnvelope,
   FaSignInAlt,
   FaUserCircle,
+  FaFlag,
+  FaFlagUsa,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLogout from "../../hooks/auth/useLogout";
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const { auth } = useAuthStore();
   const [nav, setNav] = useState(false);
   const logout = useLogout();
+  const { t } = useTranslation();
 
   const handleNav = () => {
     setNav(!nav);
+  };
+  const { i18n } = useTranslation();
+
+  
+  const toggleLanguage = () => {
+    const newLanguage = i18n.language === 'en' ? 'es' : 'en';
+    i18n.changeLanguage(newLanguage);
   };
 
   const handleScrollToFooter = () => {
@@ -29,15 +40,15 @@ const Header = () => {
   };
 
   const navItems = [
-    { id: 1, text: "Inicio", icon: <FaHome />, route: "/" },
+    { id: 1, text: t('header.home'), icon: <FaHome />, route: "/" },
     {
       id: 2,
-      text: "Proyectos",
+      text:  t('header.projects'),
       icon: <FaProjectDiagram />,
       route: "/marketplace",
     },
-    { id: 3, text: "Sobre Nosotros", icon: <FaInfoCircle />, route: "#" },
-    { id: 4, text: "Contáctanos", icon: <FaEnvelope />, route: "/contactUs" },
+    { id: 3, text:  t('header.aboutUs'), icon: <FaInfoCircle />, route: "#" },
+    { id: 4, text:  t('header.contactUs'), icon: <FaEnvelope />, route: "/contactUs" },
   ];
 
   return (
@@ -47,7 +58,7 @@ const Header = () => {
       </h1>
 
       <ul className="hidden md:flex whitespace-nowrap">
-        {/* Mapeo de los elementos de navegación */}
+
         {navItems.map((item) => (
           <Link
             key={item.id}
@@ -72,7 +83,7 @@ const Header = () => {
               className="flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300  text-white"
             >
               <FaUserCircle className="mr-2" />
-              <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
+              <span>{t('header.hello')} {auth?.user?.name ?? auth?.company?.name}</span>
             </Link>
           ) : (
             <Link
@@ -80,7 +91,7 @@ const Header = () => {
               className="flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300  text-white"
             >
               <FaUserCircle className="mr-2" />
-              <span>¡Hola! {auth?.user?.name ?? auth?.company?.name}</span>
+              <span>{t('header.hello')}{auth?.user?.name ?? auth?.company?.name}</span>
             </Link>
           )
         ) : (
@@ -89,7 +100,7 @@ const Header = () => {
             className="flex items-center p-4 hover:bg-[#FFAE00] rounded-xl m-2 cursor-pointer duration-300  text-white"
           >
             <FaSignInAlt className="mr-2" />
-            Iniciar Sesión
+            {t('header.login')}
           </Link>
         )}
 
@@ -99,7 +110,7 @@ const Header = () => {
             className="flex items-center p-4 m-2 text-white duration-300 cursor-pointer hover:bg-red-400 rounded-xl"
           >
             <FaSignInAlt className="mr-2" />
-            Cerrar Sesión
+            {t('header.logout')}
           </div>
         ) : null}
       </ul>
@@ -107,6 +118,7 @@ const Header = () => {
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
+      
 
       <ul
         className={
@@ -134,6 +146,22 @@ const Header = () => {
           </li>
         ))}
       </ul>
+      <button
+        className="flex items-center px-4 py-2 text-sm font-semibold text-white transition"
+        onClick={toggleLanguage}
+      >
+        {i18n.language === 'en' ? (
+          <>
+            <FaFlag className="mr-2" /> 
+            ES
+          </>
+        ) : (
+          <>
+            <FaFlagUsa className="mr-2" /> 
+            EN
+          </>
+        )}
+      </button>
     </div>
   );
 };

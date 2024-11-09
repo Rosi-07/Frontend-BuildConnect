@@ -4,13 +4,14 @@ import { useSnackbar } from "notistack";
 import useAuthStore from "../../hooks/auth/useAuth";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import api from "../../database/api";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
   const persist = useAuthStore((state) => state.persist);
   const setPersist = useAuthStore((state) => state.setPersist);
-
-  const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
+  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -92,13 +93,13 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-12">
                 <h3 className="text-3xl font-extrabold text-gray-800">
-                  Iniciar Sesión
+                {t('login.title')}
                 </h3>
                 <Link to="/register" className="text-sm text-black">
                   <p className="mt-4 text-sm text-gray-800">
-                    ¿Aún no tienes cuenta?{" "}
+                  {t('login.registerPrompt')}{" "}
                     <span className="ml-1 font-semibold text-blue-600 hover:underline whitespace-nowrap">
-                      Regístrate aquí
+                    {t('login.registerLink')}
                     </span>
                   </p>
                 </Link>
@@ -113,7 +114,7 @@ const Login = () => {
                     required
                     ref={emailRef}
                     className="w-full px-2 py-3 text-sm text-gray-800 border-b border-gray-300 outline-none focus:border-blue-600"
-                    placeholder="Usuario"
+                    placeholder={t('login.usernamePlaceholder')}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +145,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full px-2 py-3 text-sm text-gray-800 border-b border-gray-300 outline-none focus:border-blue-600"
-                    placeholder="Contraseña"
+                    placeholder={t('login.passwordPlaceholder')}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +173,7 @@ const Login = () => {
                     htmlFor="remember-me"
                     className="block ml-3 text-sm text-gray-800"
                   >
-                    Recordar
+                 {t('login.rememberMe')}
                   </label>
                 </div>
                 <div>
@@ -180,7 +181,7 @@ const Login = () => {
                     href="javascript:void(0);"
                     className="text-sm font-semibold text-blue-600 hover:underline"
                   >
-                    ¿Olvidaste tu contraseña?
+                   {t('login.forgotPassword')}
                   </a>
                 </div>
               </div>
@@ -190,7 +191,7 @@ const Login = () => {
                   type="submit"
                   className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-[#00455E] hover:bg-[#00455ec7] focus:outline-none"
                 >
-                  Iniciar Sesión
+                    {t('login.submitButton')}
                 </button>
               </div>
             </form>

@@ -3,6 +3,8 @@ import { useState } from "react";
 import api from "../../database/api";
 import { useSnackbar } from "notistack";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTranslation } from 'react-i18next';
+
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +14,8 @@ const ContactUs = () => {
   });
   const { enqueueSnackbar } = useSnackbar();
   const [captchaToken, setCaptchaToken] = useState(null);
-
+  const { t } = useTranslation();
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -67,14 +70,12 @@ const ContactUs = () => {
         <div className="px-4 mx-auto max-w-7xl sm:px-6">
           <div className="p-8 bg-white rounded-lg shadow-lg md:p-12">
             <div className="mb-4 text-center">
-              <h2 className="font-bold text-[#00455E] text-5xl">Contáctanos</h2>
+              <h2 className="font-bold text-[#00455E] text-5xl">{t('contactUs.title')}</h2>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
               <div className="h-full pr-6">
                 <p className="mt-3 mb-12 text-lg text-gray-600">
-                  Tienes preguntas o comentarios, no dudes en comunicarte con
-                  nosotros. Para una respuesta más rápida, te recomendamos
-                  contactarnos vía WhatsApp.
+                {t('contactUs.description')}
                 </p>
                 <ul className="mb-6 md:mb-0">
                   <li className="flex items-center mb-4">
@@ -114,7 +115,7 @@ const ContactUs = () => {
                         <input
                           type="text"
                           id="name"
-                          placeholder="Nombre"
+                          placeholder={t('contactUs.form.namePlaceholder')}
                           className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
                           name="name"
                           value={formData.name}
@@ -127,7 +128,7 @@ const ContactUs = () => {
                           type="email"
                           id="email"
                           autoComplete="email"
-                          placeholder="Correo electrónico"
+                          placeholder={t('contactUs.form.emailPlaceholder')}
                           className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
                           name="email"
                           value={formData.email}
@@ -141,7 +142,7 @@ const ContactUs = () => {
                         id="message"
                         name="message"
                         rows="5"
-                        placeholder="Mensaje..."
+                        placeholder={t('contactUs.form.messagePlaceholder')}
                         className="w-full py-2 pl-2 pr-4 mb-2 border border-gray-400 rounded-md shadow-md"
                         value={formData.message}
                         onChange={handleChange}
@@ -157,7 +158,7 @@ const ContactUs = () => {
                       type="submit"
                       className="w-full bg-[#00455E] hover:bg-[#00455ed8] text-white px-6 py-3 rounded-md"
                     >
-                      Enviar mensaje
+                     {t('contactUs.form.submitButton')}
                     </button>
                   </div>
                 </form>
