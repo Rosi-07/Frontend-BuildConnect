@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+    const { t } = useTranslation();
+
     return (
         <>
             <div className="relative w-full h-[450px]" >
@@ -13,14 +16,14 @@ const Home = () => {
                 </div>
                 <div className="absolute flex flex-col items-center justify-between mb-20 inset-2 md:flex-row">
                     <div className="md:w-1/2 md:mb-0">
-                        <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl ">Build Connect</h1>
-                        <p className="mt-4 mb-8 text-xl font-bold text-white">Impulsa la Visibilidad de tus Necesidades</p>
+                        <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl ">{t('home.title')}</h1>
+                        <p className="mt-4 mb-8 text-xl font-bold text-white">{t('home.subtitle')}</p>
                     </div>
                 </div>
             </div>
             <section id='servicios' className="py-10" >
                 <div className="container px-4 mx-auto">
-                    <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Nuestros Servicios</h2>  
+                    <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">{t('home.services.sectionTitle')}</h2>  
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                     <div className="overflow-hidden bg-white rounded-lg shadow-md">
                             <img 
@@ -29,9 +32,9 @@ const Home = () => {
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Publicación de proyectos</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">{t('home.services.projectPublication.title')}</h3>
                                 <p className="text-base text-gray-700">
-                                Nuestra plataforma te permite publicar fácilmente tus proyectos de construcción y remodelación. Nos encargamos de promover cada publicación para que alcance la máxima visibilidad entre las constructoras y profesionales del sector.
+                                {t('home.services.projectPublication.description')}
                                 </p>
                             </div>
                         </div>
@@ -42,9 +45,9 @@ const Home = () => {
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Conexión con proveedores</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">{t('home.services.supplierConnection.title')}</h3>
                                 <p className="text-base text-gray-700">
-                                Facilitamos la conexión directa entre quienes buscan servicios y las empresas que los ofrecen. Nuestra plataforma permite a las constructoras ver proyectos publicados y enviar propuestas adaptadas a las necesidades del cliente.
+                                {t('home.services.supplierConnection.description')}
                                 </p>
                             </div>
                         </div>
@@ -55,9 +58,9 @@ const Home = () => {
                                 className="object-cover w-full h-64" 
                             />
                             <div className="p-6 text-center">
-                                <h3 className="mb-2 text-xl font-medium text-gray-800">Gestión de solicitudes</h3>
+                                <h3 className="mb-2 text-xl font-medium text-gray-800">{t('home.services.requestManagement.title')}</h3>
                                 <p className="text-base text-gray-700">
-                                 Puedes gestionar todas tus solicitudes en un solo lugar. Desde la publicación inicial hasta la selección de la propuesta ideal, nuestra plataforma te facilita comparar y elegir las mejores ofertas para tu proyecto.
+                                {t('home.services.requestManagement.description')}
                                 </p>
                             </div>
                         </div>
@@ -69,11 +72,9 @@ const Home = () => {
                 <div className="container px-4 py-16 mx-auto sm:px-6 lg:px-8">
                     <div className="grid items-center grid-cols-1 gap-8 md:grid-cols-2">
                         <div className="max-w-lg">
-                            <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">¿Quiénes somos?</h2>
+                            <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">{t('home.aboutUs.title')}</h2>
                             <p className="mt-4 text-lg text-gray-600">
-                                BuildConnect es una plataforma innovadora formada por un grupo de estudiantes. Nuestra misión es simplificar el proceso de búsqueda y contratación de servicios de construcción, brindando un entorno intuitivo y transparente. 
-                                Aquí, los usuarios pueden publicar sus proyectos y recibir propuestas competitivas de constructoras interesadas, asegurando así una ejecución eficiente y con resultados de alta calidad.
-                                Nos diferenciamos por nuestra dedicación a ofrecer un servicio orientado a facilitar las mejores conexiones en el sector.
+                            {t('home.aboutUs.description')}
                             </p>
                         </div>
                         <div className="mt-12 md:mt-0">
@@ -89,7 +90,7 @@ const Home = () => {
 
             <section className="mt-10 text-gray-700 body-font">
                 <div className="flex justify-center text-3xl font-bold text-center text-gray-800">
-                    ¿Por qué Nosotros?
+                {t('home.whyUs.title')}
                 </div>
                 <div className="container px-5 py-12 mx-auto">
                     <div className="flex flex-wrap justify-center text-center">
@@ -102,7 +103,7 @@ const Home = () => {
                                         alt="Visibilidad" 
                                     />
                                 </div>
-                                <h2 className="text-2xl text-gray-900 title-font font-regular">Visibilidad Máxima</h2>
+                                <h2 className="text-2xl text-gray-900 title-font font-regular"> {t('home.whyUs.visibility')}</h2>
                             </div>
                         </div>
                         <div className="p-4 md:w-1/4 sm:w-1/2">
@@ -114,7 +115,7 @@ const Home = () => {
                                         alt="Tarifas Competitivas" 
                                     />
                                 </div>
-                                <h2 className="text-2xl text-gray-900 title-font font-regular">Tarifas Competitivas</h2>
+                                <h2 className="text-2xl text-gray-900 title-font font-regular"> {t('home.whyUs.competitiveRates')}</h2>
                             </div>
                         </div>
                         <div className="p-4 md:w-1/4 sm:w-1/2">
@@ -126,7 +127,7 @@ const Home = () => {
                                         alt="Eficiencia" 
                                     />
                                 </div>
-                                <h2 className="text-2xl text-gray-900 title-font font-regular">Eficiencia</h2>
+                                <h2 className="text-2xl text-gray-900 title-font font-regular"> {t('home.whyUs.efficiency')}</h2>
                             </div>
                         </div>
                     </div>

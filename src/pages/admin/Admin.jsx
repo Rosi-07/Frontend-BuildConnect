@@ -89,7 +89,7 @@ function Admin() {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <TotalProjectsCard
-              projects={projects}
+              projects={projects || []}
               sx={{ borderRadius: 2, boxShadow: 3, backgroundColor: "#ffffff" }}
             />
           </Grid>
