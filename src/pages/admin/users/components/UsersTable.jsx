@@ -10,6 +10,8 @@ import UpdateUser from "./UpdateUser";
 import ReusableDialog from "../../../../components/dialog/ReusableDialog";
 import ViewUser from "./ViewUser";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import Permission from "./Permission";
+import ChatIcon from '@mui/icons-material/Chat';
 
 function UsersTable({ reset, setReset }) {
   const api = useAxiosPrivate();
@@ -21,6 +23,8 @@ function UsersTable({ reset, setReset }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
+  const [openPermission, setOpenPermission] = useState(false);
+  const [selectedPermission, setSelectedPermission] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,7 +39,6 @@ function UsersTable({ reset, setReset }) {
     };
     fetchUsers();
   }, [api, reset]);
-
 
   const handleOpenModal = (user) => {
     setSelectedUser(user);
@@ -65,6 +68,16 @@ function UsersTable({ reset, setReset }) {
   const handleCloseViewDialog = () => {
     setSelectedUser(null);
     setOpenViewDialog(false);
+  };
+
+  const handleOpenPermission = (user) => {
+    setSelectedPermission(user);
+    setOpenPermission(true);
+  };
+
+  const handleClosePermission = () => {
+    setSelectedPermission(null);
+    setOpenPermission(false);
   };
 
   const columns = [
@@ -106,6 +119,13 @@ function UsersTable({ reset, setReset }) {
               label="Ver"
               onClick={() => {
                 handleOpenViewDialog(params.row);
+              }}
+            />
+            <GridActionsCellItem
+              icon={<ChatIcon />}
+              label="Permisos"
+              onClick={() => {
+                handleOpenPermission(params.row);
               }}
             />
           </div>
@@ -197,6 +217,27 @@ function UsersTable({ reset, setReset }) {
           <ViewUser user={selectedUser} onClose={handleCloseViewDialog} />
         }
       ></ReusableModal>
+
+
+{selectedPermission && (
+      <ReusableModal
+        open={openPermission}
+        onClose={handleClosePermission}
+        title="Permisos"
+        children={
+          <Permission
+            title={"Agregar Permiso"}
+            user={selectedPermission}
+            onClose={handleClosePermission}
+            onUpdate={() => {
+              handleClosePermission();
+              setReset((prev) => !prev);
+            }}
+          />
+        }
+      ></ReusableModal>
+
+    )}
     </>
   );
 }
