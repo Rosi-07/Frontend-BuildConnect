@@ -75,14 +75,16 @@ const ProjectMarketplace = () => {
 
   if (error) {
     return (
-      <div className='text-center text-red-500'>
+      <div className='flex flex-col items-center justify-center gap-4 p-6 text-red-600 bg-red-100 border border-red-400 rounded-md shadow-md'>
         {auth?.user ? (
-          error
+          <p className='text-lg font-semibold'>{error}</p>
         ) : (
-          <div>
-            <p>Debes iniciar sesión para ver los proyectos</p>
+          <div className='text-center'>
+            <p className='mb-4 text-lg font-medium'>
+              Debes iniciar sesión para ver los proyectos
+            </p>
             <button
-              className='px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700'
+              className='px-5 py-2 font-bold text-white transition-transform transform rounded-full shadow bg-gradient-to-r from-blue-500 to-blue-700 hover:shadow-lg hover:scale-105'
               onClick={() => navigate('/login')}
             >
               Iniciar sesión
