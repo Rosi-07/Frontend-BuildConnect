@@ -3,9 +3,13 @@ import SearchBar from './components/SearchBar';
 import Filters from './components/Filters';
 import ProjectGrid from './components/ProjectGrid';
 import useAxiosPrivate from '../../hooks/auth/useAxiosPrivate';
+import useAuthStore from '../../hooks/auth/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectMarketplace = () => {
   const api = useAxiosPrivate();
+  const auth = useAuthStore((state) => state.auth);
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +74,23 @@ const ProjectMarketplace = () => {
   }
 
   if (error) {
-    return <div className='text-center text-red-500'>{error}</div>;
+    return (
+      <div className='text-center text-red-500'>
+        {auth?.user ? (
+          error
+        ) : (
+          <div>
+            <p>Debes iniciar sesión para ver los proyectos</p>
+            <button
+              className='px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700'
+              onClick={() => navigate('/login')}
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
