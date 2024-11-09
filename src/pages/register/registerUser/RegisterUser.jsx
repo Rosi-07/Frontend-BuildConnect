@@ -238,23 +238,13 @@ const RegisterUser = () => {
                 </p>
               )}
             </div>
-          </div>
-
-          <div>
-            <h2 className='text-lg font-semibold text-gray-800'>
-              Infomacion de Contacto
-            </h2>
-            <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2'>
-              <div>
-                <h2 className='text-lg font-semibold text-gray-800'>
-                  Correos Electrónicos
-                </h2>
+          <div> 
                 {contacts.emails.map((email, index) => (
                   <div key={index}>
                     <input
                       name='emails'
                       type='email'
-                      className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
+                        className='bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all'
                       placeholder='Correo Electrónico'
                       value={email}
                       onChange={(e) => handleContactsChange(index, e)}
@@ -275,13 +265,10 @@ const RegisterUser = () => {
                   onClick={addEmailInput}
                   className='text-sm text-blue-600'
                 >
-                  Agregar correo
+                  Agregar correo adicional
                 </button>
               </div>
               <div>
-                <h2 className='text-lg font-semibold text-gray-800'>
-                  Números de Teléfono
-                </h2>
                 {contacts.numbers.map((number, index) => (
                   <div key={index}>
                     <input
@@ -308,12 +295,10 @@ const RegisterUser = () => {
                   onClick={addNumberInput}
                   className='text-sm text-blue-600'
                 >
-                  Agregar número
+                  Agregar número adicional
                 </button>
               </div>
             </div>
-          </div>
-
           <div className='flex justify-center mt-6'>
             <button
               type='submit'
