@@ -19,11 +19,11 @@ const ProjectGrid = ({ projects, totalProjects }) => {
         ))}
       </div>
       {totalProjects.length === 5 && (
-        <div className='p-4 mt-5 text-center text-white bg-blue-900 rounded-lg shadow-lg'>
+        <div className='p-4 mt-5 text-center text-black rounded-lg '>
           <p className='mb-2 text-lg font-semibold'>
             ¿Quieres ver más proyectos?
           </p>
-          <span className='text-blue-500 cursor-pointer hover:text-blue-300'>
+          <span className='text-blue-800'>
             Suscríbete a nuestro plan premium para acceso ilimitado.
           </span>
         </div>
