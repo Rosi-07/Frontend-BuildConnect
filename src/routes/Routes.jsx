@@ -7,7 +7,7 @@ import ContactUs from '../pages/contactUs/ContactUs.jsx';
 import AboutUs from '../pages/aboutUs/AboutUs.jsx';
 import ProjectMarketplace from '../pages/projectMarketplace/ProjectMarketplace.jsx';
 import ProjectDetails from '../pages/projectDetails/ProjectDetails.jsx';
-import Unauthorized from '../pages/unauthorized/unauthorized.jsx';
+import Unauthorized from '../pages/unauthorized/Unauthorized.jsx';
 import PersistLogin from '../components/auth/PersistLogin.jsx';
 import Admin from '../pages/admin/Admin.jsx';
 import Users from '../pages/admin/users/Users.jsx';
