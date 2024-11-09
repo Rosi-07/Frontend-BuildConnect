@@ -23,7 +23,7 @@ const ProjectGrid = ({ projects, totalProjects }) => {
           <p className='mb-2 text-lg font-semibold'>
             ¿Quieres ver más proyectos?
           </p>
-          <span className='text-blue-500 cursor-pointer hover:text-blue-300'>
+          <span className='text-white cursor-pointer hover:text-[#00455e51] '>
             Suscríbete a nuestro plan premium para acceso ilimitado.
           </span>
         </div>
