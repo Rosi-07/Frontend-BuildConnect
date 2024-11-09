@@ -11,7 +11,7 @@ import Unauthorized from '../pages/unauthorized/Unauthorized.jsx';
 import PersistLogin from '../components/auth/PersistLogin.jsx';
 import Admin from '../pages/admin/Admin.jsx';
 import Users from '../pages/admin/users/Users.jsx';
-import Companies from '../pages/admin/companies/companies.jsx';
+import Companies from '../pages/admin/companies/Companies.jsx';
 import Register from '../pages/register/Register.jsx';
 import UserProfile from '../pages/userProfile/UserProfile.jsx';
 import BusinessCatalog from '../pages/businessCatalog/BusinessCatalog.jsx';
